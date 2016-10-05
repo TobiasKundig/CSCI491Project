@@ -10,66 +10,11 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="../css/main.css">
     <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
-
-
     <script src="https://code.jquery.com/jquery-{{JQUERY_VERSION}}.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
     <script src="../js/plugins.js"></script>
     <script src="../js/main.js"></script>
-
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        li {
-            float: right;
-        }
-
-        li a, .dropbtn {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover, .dropdown:hover .dropbtn {
-            background-color: red;
-        }
-
-        li.dropdown {
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {background-color: #f1f1f1}
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
 
 </head>
 <body>
@@ -77,26 +22,21 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-
-
-
 <ul>
-    <li><a class="active" href="#home">Home</a></li>
-    <li><a href="#news">News</a></li>
-    <li class="dropdown">
-        <a href="#" class="dropbtn">Dropdown</a>
-        <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-        </div>
-    </li>
+    <label>
+        <li><a class="active" href="#home">Login</a></li>
+        <li><input id="password" type="text" placeholder="password"></li>
+        <li><input id="username" type="text" placeholder="username"></li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Dropdown</a>
+            <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </li>
+    </label>
 </ul>
-
-
-
-
-
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
