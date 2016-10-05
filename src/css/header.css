@@ -10,8 +10,9 @@ li {
     display:inline;
 }
 
-ul label{
+label{
     float: right;
+    height: 1vh;
 }
 
 li a, .dropbtn {
@@ -23,9 +24,9 @@ li a, .dropbtn {
 }
 
 li input {
-    height: .01em;
+
     width: 8em;
-    padding: 16px 16px;
+
 }
 
 li a:hover, .dropdown:hover .dropbtn {
@@ -60,4 +61,10 @@ li.dropdown {
 
 ul img{
     float: left;
+}
+h3{
+    display: inline-block;
+    color: cornsilk;
+    text-align: left;
+    padding-left: 136px;
 }
