@@ -33,9 +33,9 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+        <div class="container">
+            <div class="page-header">
             <header title="header">
-
                 <ul>
                     <img src="img/Logo.png" height="52" width="52">
                     <h3>Welcome To MyWork</h3>
@@ -43,9 +43,14 @@
                     <li><a href="#" id="login" class="button right">Login</a></li>
                 </ul>
             </header>
+            </div>
+            <div class="jumbotron">
+                <p><h1>Checkout other profiles</h1></p>
+                <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+                    Your browser does not support the HTML5 canvas tag.</canvas>
+            </div>
 
-             <p>Here we Go!</p>
-
+        </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -57,5 +62,42 @@
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
         <script src="js/jquery.avgrund.js"></script>
+
+    <script type="text/javascript">
+        function Shape(x, y, w, h, fill) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.fill = fill;
+        }
+
+        // get canvas element.
+        var elem = document.getElementById('myCanvas');
+        elem.style.width='100%';
+        elem.style.height='100%';
+
+        // check if context exist
+        if (elem.getContext) {
+
+            var myRect = [];
+
+            myRect.push(new Shape(10, 0, 25, 25, "#333"));
+            myRect.push(new Shape(0, 40, 39, 25, "#333"));
+            myRect.push(new Shape(0, 80, 100, 25, "#333"));
+
+            context = elem.getContext('2d');
+            for (var i in myRect) {
+                oRec = myRect[i];
+                oRec.src='img/Logo.png';
+                context.fillStyle = oRec.fill;
+                context.fillRect(oRec.x, oRec.y, oRec.w, oRec.h);
+                oRec.onload = function(){
+                    context.drawImage(oRec, 100, 100);
+                }
+
+            }
+        }
+    </script>
     </body>
 </html>
