@@ -1,0 +1,58 @@
+[
+  {
+    "model": "portfolio.User",
+    "pk": 1,
+    "fields": {
+      "first_name": "Gandalf",
+      "last_name": "TheGrey"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 2,
+    "fields": {
+      "first_name": "Harry",
+      "last_name": "Potter"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 3,
+    "fields": {
+      "first_name": "Matthew",
+      "last_name": "Dolan"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 4,
+    "fields": {
+      "first_name": "Toby",
+      "last_name": "Kundig"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 5,
+    "fields": {
+      "first_name": "Chloe",
+      "last_name": "Russell"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 6,
+    "fields": {
+      "first_name": "Joel",
+      "last_name": "Henry"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 7,
+    "fields": {
+      "first_name": "Stephen",
+      "last_name": "Colbert"
+    }
+  }
+]
