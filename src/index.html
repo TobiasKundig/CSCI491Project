@@ -19,7 +19,6 @@
         <script src="js/main.js"></script>
         <script src="js/popup.js"></script>
 
-
         <link rel="stylesheet" href="http://labs.voronianski.com/media/style/reset.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="style/avgrund.css">
@@ -45,8 +44,7 @@
             </header>
             </div>
             <div class="jumbotron" id="jumbotron">
-
-                <canvas id="myCanvas" width="1000" height="600" style="border:1px solid #d3d3d3;">
+                <canvas id="myCanvas" width="1000" height="600">
                     <img src="img/Logo.png" id="image1" width="805" height="602">
                 </canvas>
             </div>
@@ -65,18 +63,10 @@
 
     <script type="text/javascript">
 
-        function MakePictureObj(){
-                this.image= new Image();
-                this.src= 'img/Logo.png';
-                this.x = 0;
-                this.y = 0;
-        }
-
-        function changePicture(){
-            var  imageOne = document.getElementById('image1');
-            imageOne.src = 'img/tile-wide.png';
-
-        }
+        //Instance variables
+        var imageArray = [];
+        var x = 0;
+        var y = 0;
 
         // get canvas element.
         var elem = document.getElementById('myCanvas');
@@ -84,36 +74,108 @@
         elem.style.width = '100%';
         context = elem.getContext("2d");
 
-        var imageArray = [];
+        //Object for the images on the canvas, can be moved and resized
+        //resourced and instantiates Image(), Need to make type of image though
+        function MakePictureObj(){
+            this.image= new Image();
+            this.src= 'img/Logo.png';
+            this.x = 0;
+            this.y = 0;
+            this.sizeX = 200;
+            this.sizeY = 200;
+            this.originalX = 9999;
+            this.originalY = 9999;
 
-        for(var j = 0; j < 10; j++){
+            this.animate = function(){
+                changeCoordinates(this);
+                context.clearRect(0,0, elem.width, elem.height);
+
+                for(var i = 0; i < imageArray.length; i++){
+
+                    //Don't know why I need these two unless the Image function isn't
+                    //being called when the object is initially created but does so below
+                    var tempImg = imageArray[i].image;
+                    tempImg.src = imageArray[i].src;
+
+                    context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                }
+            }
+        }
+
+        function changeCoordinates(obj){
+
+            var tempRandom = Math.floor((Math.random() * 20) + -10);
+
+            if (Math.abs(obj.originalX - obj.x) <= 10) {
+                obj.x += tempRandom;
+
+            }else{
+                obj.x -= tempRandom;
+            }
+            if (Math.abs(obj.originalY - obj.y) <= 10) {
+                obj.y += tempRandom;
+
+            }else{
+                obj.y -= tempRandom;
+            }
+        }
+
+        //Creates objects and adds to imageArray
+        //Then modifies the objects based on where on the canvas they will be
+        //Currently set for a 5 x 4 grid on x=1000 size canvas
+        for(var j = 0; j < 20; j++){
+
             imageArray[j] = new MakePictureObj();
-            j++;
+
+            //base case, start of loop BUT still step x by 200
+            if(j == 0 || x == 0){
+                imageArray[j].originalX = 0;
+                imageArray[j].originalY = 0;
+                x += 200;
+            }else if (j != 0 && x < 1000){
+                //NOT the beginning of the loop && not the end
+                imageArray[j].originalX = x;
+                imageArray[j].originalY = y;
+                imageArray[j].x = x;
+                imageArray[j].y = y;
+                x += 200;
+            }else {
+                //The END reset
+                y += 200;
+                x = 0;
+                imageArray[j].originalX = x;
+                imageArray[j].originalY = y;
+                imageArray[j].x = 0;
+                imageArray[j].y = y;
+            }
         }
 
-        for(var k = 1; k < 11; k++){
-            imageArray[k] = new MakePictureObj();
-            var tempElem = imageArray[k];
-            tempElem.x = 200;
-            tempElem.y = 0;
-            imageArray[k] = tempElem;
-            k++;
-        }
+        window.setInterval(moveStuff, 300);
 
-        window.onload = function() {
+        function moveStuff(){
+            for(var i = 0; i < imageArray.length; i++){
 
-            var x = 0;
-            var y = 0;
-
-            for(var i = 0; i < 5; i++){
+                var tempObject = imageArray[i];
+                tempObject.animate();
+                //Don't know why I need these two unless the Image function isn't
+                //being called when the object is initially created but does so below
                 var tempImg = imageArray[i].image;
-                var tempX = imageArray[i].x;
-                var tempY = imageArray[i].y;
-
                 tempImg.src = imageArray[i].src;
 
-                context.drawImage(tempImg, tempX, tempY, 200, 200);
-                x += 200;
+                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+            }
+        }
+        //Draws the image after being loaded
+        window.onload = function() {
+
+            for(var i = 0; i < imageArray.length; i++){
+
+                //Don't know why I need these two unless the Image function isn't
+                //being called when the object is initially created but does so below
+                var tempImg = imageArray[i].image;
+                tempImg.src = imageArray[i].src;
+
+                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
             }
         };
     </script>
