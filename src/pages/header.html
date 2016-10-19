@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,22 +10,37 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
+    <script src="../js/plugins.js"></script>
+    <script src="../js/main.js"></script>
+
+
+    <link rel="stylesheet" href="http://labs.voronianski.com/media/style/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../style/avgrund.css">
+
 </head>
 <body>
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
-<p>Hello world! This is HTML5 Boilerplate.</p>
+    <ul>
+        <img src="../img/Logo.png" height="52" width="52">
+        <h3>Welcome To MyWork</h3>
 
-<script src="https://code.jquery.com/jquery-{{JQUERY_VERSION}}.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
+        <label>
+            <li><a class="active" href="#home">Login</a></li>
+            <li><input id="password" type="text" placeholder="password"></li>
+            <li><input id="username" type="text" placeholder="username"></li>
+            <li><a href="#" id="register" class="button right">Register</a></li>
+        </label>
+    </ul>
+
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
@@ -35,6 +50,25 @@
         e.src='https://www.google-analytics.com/analytics.js';
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
     ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+</script>
+<script src="../js/jquery.avgrund.js"></script>
+<script>
+
+    $(function() {
+        $('#register').avgrund({
+            height: 200,
+            holderClass: 'custom',
+            showClose: true,
+            showCloseText: 'close',
+            onBlurContainer: '.container',
+            template: '<p>So implement your design and place content here! If you want to close modal, please hit "Esc", click somewhere on the screen or use special button.</p>' +
+            '<div>' +
+            '<a href="http://github.com/voronianski/jquery.avgrund.js" target="_blank" class="github">Avgrund on Github</a>' +
+            '<a href="http://twitter.com/voronianski" target="_blank" class="twitter">Twitter</a>' +
+            '<a href="http://dribbble.com/voronianski" target="_blank" class="dribble">Dribbble</a>' +
+            '</div>'
+        });
+    });
 </script>
 </body>
 </html>
