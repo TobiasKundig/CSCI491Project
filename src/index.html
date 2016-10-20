@@ -74,6 +74,9 @@
         elem.style.width = '100%';
         context = elem.getContext("2d");
 
+        //The initialization method that... initializes
+        init();
+
         //Object for the images on the canvas, can be moved and resized
         //resourced and instantiates Image(), Need to make type of image though
         function MakePictureObj(){
@@ -86,6 +89,7 @@
             this.originalX = 9999;
             this.originalY = 9999;
 
+            //animates the object!! Sadly I have to redraw all the objects?!
             this.animate = function(){
                 changeCoordinates(this);
                 context.clearRect(0,0, elem.width, elem.height);
@@ -97,105 +101,121 @@
                     var tempImg = imageArray[i].image;
                     tempImg.src = imageArray[i].src;
 
-                    var tempi = i;
-
-                    if (tempi >=2){
-                        var tempImg1 = imageArray[tempi-1].image;
-                        tempImg1.src = imageArray[tempi-1].src;
-
-                        tempi = i;
-
-                        var tempImg2 = imageArray[tempi-2].image;
-                        tempImg2.src = imageArray[tempi-2].src;
-
-                        tempi = i;
-
-                        context.drawImage(imageArray[tempi-1].image, imageArray[tempi-1].x, imageArray[tempi-1].y, imageArray[tempi-1].sizeX, imageArray[tempi-1].sizeY);
-                        tempi = i;
-                        context.drawImage(imageArray[tempi-2].image, imageArray[tempi-2].x, imageArray[tempi-2].y, imageArray[tempi-2].sizeX, imageArray[tempi-2].sizeY);
-                    }
-
                     context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-                    i++;
-                    i++;
+
                 }
             };
 
             this.deltaX = function(){
-                return (this.originalX - this.x);
+                return (this.x - this.originalX);
             };
 
             this.deltaY = function(){
-                return (this.originalY - this.y)
+                return (this.y - this.originalY)
             }
         }
 
+        //changes the X and Y values of the Picture object with a little bounds detection
         function changeCoordinates(obj){
 
-            var tempRandom = Math.floor((Math.random() * 6) + -3);
+            var tempRandom = (Math.random() * 4) + -2;
 
-            console.log("DeltaX " + obj.deltaX());
-            console.log("DeltaY " + obj.deltaY());
+            //console.log("DeltaX " + obj.deltaX());
+            //console.log("DeltaY " + obj.deltaY());
 
-            if (obj.deltaX() <= 10 && obj.deltaX() >= -10) {
+            if (obj.deltaX() <= 40 && obj.deltaX() >= -40) {
                 obj.x += tempRandom;
 
-            }else if (obj.deltaX() >= 11){
-                obj.x += Math.abs(tempRandom);
-            }else if(obj.deltaX <= -11){
-                obj.x += Math.abs(tempRandom);
+            }else if (obj.deltaX() >= 41 || obj.deltaX() <= -41){
+                //console.log("DeltaY " + obj.originalX);
+                obj.x = obj.originalX;
             }
 
-            if (obj.deltaY() <= 10 && obj.deltaY() >= -10) {
+            if (obj.deltaY() <= 40 && obj.deltaY() >= -40) {
                 obj.y += tempRandom;
-            }else if(obj.deltaY() >= 11){
-                obj.y += Math.abs(tempRandom);
+            }else if(obj.deltaY() >= 41 || obj.deltaY() <= -41){
 
-            }else if(obj.deltaY() <= -11){
-                obj.y += Math.abs(tempRandom);
+                obj.y = obj.originalY;
+
             }
+        }
+
+        var p = {x:25, y:25};
+        var velo=6, corner=30, rad=20;
+        var ball={x:p.x, y:p.y};
+
+        var moveX=Math.cos(Math.PI/180*corner) * velo;
+        var moveY=Math.sin(Math.PI/180*corner) * velo;
+
+
+        function animate1(obj){
+            context.clearRect(0,0, elem.width, elem.height);
+
+            if(obj.x>elem.width-rad || obj.x<rad) moveX=-moveX;
+            if(obj.y>elem.height-rad || obj.y<rad) moveY=-moveY;
+
+            obj.x +=moveX;
+            obj.y +=moveY;
+
+            context.beginPath();
+
+            context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
+
+            context.closePath();
         }
 
         //Creates objects and adds to imageArray
         //Then modifies the objects based on where on the canvas they will be
         //Currently set for a 5 x 4 grid on x=1000 size canvas
-        for(var j = 0; j < 20; j++){
+        function init(){
+            for(var j = 0; j < 16; j++){
 
-            imageArray[j] = new MakePictureObj();
+                imageArray[j] = new MakePictureObj();
 
-            //base case, start of loop BUT still step x by 200
-            if(j == 0 && x == 0){
-                imageArray[j].originalX = 0;
-                imageArray[j].originalY = 0;
+                //base case, start of loop BUT still step x by 200
+                if(j == 0 && x == 0){
+                    imageArray[j].originalX = 0;
+                    imageArray[j].originalY = 0;
 
-            }else if (j != 0 && x < 1000){
-                //NOT the beginning of the loop && not the end
-                x += 200;
-                imageArray[j].originalX = x;
-                imageArray[j].originalY = y;
-                imageArray[j].x = x;
-                imageArray[j].y = y;
+                }else if (j != 0 && x < 800){
+                    //NOT the beginning of the loop && not the end
+                    x += 200;
+                    imageArray[j].originalX = x;
+                    imageArray[j].originalY = y;
+                    imageArray[j].x = x;
+                    imageArray[j].y = y;
 
-            }else {
-                //The END reset
-                y += 200;
-                x = 0;
-                imageArray[j].originalX = x;
-                imageArray[j].originalY = y;
-                imageArray[j].x = 0;
-                imageArray[j].y = y;
+                }else {
+                    //The END reset
+                    y += 200;
+                    x = 0;
+                    imageArray[j].originalX = x;
+                    imageArray[j].originalY = y;
+                    imageArray[j].x = 0;
+                    imageArray[j].y = y;
+                }
+                if ((j%2) == 0){
+                    imageArray[j].src = "img/apple.png";
+                }
             }
         }
 
-        window.setInterval(moveStuff, 500);
-
+        //Interval that defines function to be called and time in ms
+        window.setInterval(moveStuff, 400);
+        //setInterval(animate1, 80);
+        //Moves all the elements in the imageArray, but only every fourth
         function moveStuff(){
-            for(var i = 0; i < imageArray.length; i++){
 
-                var tempRandom = Math.floor((Math.random() * imageArray.length));
+
+            context.clearRect(0,0, elem.width, elem.height);
+            for(var i = 0; i < imageArray.length; i++){
+                var obj = imageArray[i];
+                /*var tempRandom = Math.floor((Math.random() * imageArray.length));
 
                 var tempObject = imageArray[tempRandom];
-                tempObject.animate();
+                console.log("tempRandom " + tempObject);
+                //tempObject.animate();
+                animate1(tempObject);
                 //Don't know why I need these two unless the Image function isn't
                 //being called when the object is initially created but does so below
                 var tempImg = imageArray[tempRandom].image;
@@ -204,9 +224,24 @@
                 context.drawImage(imageArray[tempRandom].image, imageArray[tempRandom].x, imageArray[tempRandom].y, imageArray[tempRandom].sizeX, imageArray[tempRandom].sizeY);
                 if (i%4){
                     i++;
-                }
+                }*/
 
 
+                var tempImg = imageArray[i].image;
+                tempImg.src = imageArray[i].src;
+
+
+                if(obj.x>elem.width-rad || obj.x<rad) moveX=-moveX;
+                if(obj.y>elem.height-rad || obj.y<rad) moveY=-moveY;
+
+                obj.x +=moveX;
+                obj.y +=moveY;
+
+                context.beginPath();
+
+                context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
+                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                context.closePath();
             }
         }
         //Draws the image after being loaded
