@@ -1,0 +1,231 @@
+[
+  {
+    "model": "portfolio.User",
+    "pk": 1,
+    "fields": {
+      "first_name": "Gandalf",
+      "last_name": "TheGrey"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 2,
+    "fields": {
+      "first_name": "Harry",
+      "last_name": "Potter"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 3,
+    "fields": {
+      "first_name": "Matthew",
+      "last_name": "Dolan"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 4,
+    "fields": {
+      "first_name": "Toby",
+      "last_name": "Kundig"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 5,
+    "fields": {
+      "first_name": "Chloe",
+      "last_name": "Russell"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 6,
+    "fields": {
+      "first_name": "Joel",
+      "last_name": "Henry"
+    }
+  },
+  {
+    "model": "portfolio.User",
+    "pk": 7,
+    "fields": {
+      "first_name": "Stephen",
+      "last_name": "Colbert"
+    }
+  },
+
+
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 1,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 2,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 3,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 4,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 5,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 6,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+
+  {
+    "model": "portfolio.Portfolio",
+    "pk": 7,
+    "fields": {
+      "name": "Harry",
+      "header": "Potter",
+      "style": "style",
+      "stylesheet": "stylesheet"
+    }
+  },
+  {
+    "model": "portfolio.Account",
+    "pk": 1,
+    "fields": {
+      "username": "gandalf",
+      "email": "Gandalf@TheFellowship.com",
+      "password": "TheGrey",
+      "user": "1",
+      "portfolio": "1"
+
+    }
+  },
+  {
+    "model": "portfolio.Account",
+    "pk": 2,
+    "fields": {
+      "username": "hpotter",
+      "email": "HarrySwagger@Hogwarts.edu",
+      "password": "harry",
+      "user": "2",
+      "portfolio": "2"
+
+    }
+  },
+
+  {
+    "model": "portfolio.Account",
+    "pk": 3,
+    "fields": {
+      "username": "mdolan2424",
+      "email": "mdolan2424f@gmail.com",
+      "password": "test",
+      "user": "3",
+      "portfolio": "3"
+
+    }
+  },
+
+  {
+    "model": "portfolio.Account",
+    "pk": 4,
+    "fields": {
+      "username": "tkundig",
+      "email": "TKundig@TheFellowship.com",
+      "password": "test",
+      "user": "4",
+      "portfolio": "4"
+
+    }
+  },
+  {
+    "model": "portfolio.Account",
+    "pk": 5,
+    "fields": {
+      "username": "crussell",
+      "email": "CRussel@Hogwards.edu",
+      "password": "test",
+      "user": "5",
+      "portfolio": "5"
+
+    }
+  },
+  {
+    "model": "portfolio.Account",
+    "pk": 6,
+    "fields": {
+      "username": "jhenry",
+      "email": "JHenry@CSCIProfessors.com",
+      "password": "test",
+      "user": "6",
+      "portfolio": "6"
+
+    }
+  },
+
+  {
+    "model": "portfolio.Account",
+    "pk": 7,
+    "fields": {
+      "username": "scolbert",
+      "email": "SColbert@LateNight.com",
+      "password": "test",
+      "user": "7",
+      "portfolio": "7"
+
+    }
+  }
+
+
+
+
+
+  ]

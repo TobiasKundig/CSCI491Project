@@ -9,8 +9,9 @@ from django.db import migrations, models
 from datetime import date
 from django.core.management import call_command
 
-def loaddata(apps, schema_editor):
-    call_command('loaddata','initial_users.json')
+def loadfixtures(apps, schema_editor):
+    call_command('loaddata','initial_data.json')
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -18,4 +19,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(loadfixtures),
     ]

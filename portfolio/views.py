@@ -16,6 +16,7 @@ def index(request):
      return render(request, 'portfolio/index.html', {'all_users': all_users})
    # return render(request,'portfolio/index.html')
 
+#present the details of a portfolio.
 def detail(request, account):
     #if not request.user.is_authenticated():
         #return render(request, 'portfolio/login.html')
@@ -23,7 +24,7 @@ def detail(request, account):
 
 
     account = get_object_or_404(Account, username=account)
-    portfolio = get_object_or_404(Portfolio, portfolio=account)
+    #portfolio = get_object_or_404(Portfolio, portfolio=account)
     return render(request, 'portfolio/detail.html', {'this_account': account})
 
 
@@ -46,6 +47,7 @@ def signup(request):
     return
 
 
+#class based views. I (Matt) haven't worked much with them yet.
 class portfolio(View):
     portfolio = "myportfolio"
 
