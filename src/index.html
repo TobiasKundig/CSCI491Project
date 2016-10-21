@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,22 +10,45 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
 
-        <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/header.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/popup.js"></script>
+
+        <link rel="stylesheet" href="http://labs.voronianski.com/media/style/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="style/avgrund.css">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
-
-        <script src="https://code.jquery.com/jquery-{{JQUERY_VERSION}}.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <div class="container">
+            <div class="page-header">
+            <header title="header">
+                <ul>
+                    <img src="img/Logo.png" height="52" width="52">
+                    <h3>Welcome To MyWork</h3>
+                        <li><a href="#" id="register" class="button right">Register</a></li>
+                        <li><a href="#" id="login" class="button right">Login</a></li>
+                </ul>
+            </header>
+            </div>
+            <div class="jumbotron" id="jumbotron">
+                <canvas id="myCanvas" width="1000" height="600">
+                    <img src="img/Logo.png" id="image1" width="805" height="602">
+                </canvas>
+            </div>
+        </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -36,5 +59,204 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
+        <script src="js/jquery.avgrund.js"></script>
+
+    <script type="text/javascript">
+
+        //Instance variables
+        var imageArray = [];
+        var x = 0;
+        var y = 0;
+
+        // get canvas element.
+        var elem = document.getElementById('myCanvas');
+        elem.style.height = '100%';
+        elem.style.width = '100%';
+        context = elem.getContext("2d");
+
+        //The initialization method that... initializes
+        init();
+
+        //Object for the images on the canvas, can be moved and resized
+        //resourced and instantiates Image(), Need to make type of image though
+        function MakePictureObj(){
+            this.image= new Image();
+            this.src= 'img/Logo.png';
+            this.x = 0;
+            this.y = 0;
+            this.sizeX = 200;
+            this.sizeY = 200;
+            this.originalX = 9999;
+            this.originalY = 9999;
+
+            //animates the object!! Sadly I have to redraw all the objects?!
+            this.animate = function(){
+                changeCoordinates(this);
+                context.clearRect(0,0, elem.width, elem.height);
+
+                for(var i = 0; i < imageArray.length; i++){
+
+                    //Don't know why I need these two unless the Image function isn't
+                    //being called when the object is initially created but does so below
+                    var tempImg = imageArray[i].image;
+                    tempImg.src = imageArray[i].src;
+
+                    context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+
+                }
+            };
+
+            this.deltaX = function(){
+                return (this.x - this.originalX);
+            };
+
+            this.deltaY = function(){
+                return (this.y - this.originalY)
+            }
+        }
+
+        //changes the X and Y values of the Picture object with a little bounds detection
+        function changeCoordinates(obj){
+
+            var tempRandom = (Math.random() * 4) + -2;
+
+            //console.log("DeltaX " + obj.deltaX());
+            //console.log("DeltaY " + obj.deltaY());
+
+            if (obj.deltaX() <= 40 && obj.deltaX() >= -40) {
+                obj.x += tempRandom;
+
+            }else if (obj.deltaX() >= 41 || obj.deltaX() <= -41){
+                //console.log("DeltaY " + obj.originalX);
+                obj.x = obj.originalX;
+            }
+
+            if (obj.deltaY() <= 40 && obj.deltaY() >= -40) {
+                obj.y += tempRandom;
+            }else if(obj.deltaY() >= 41 || obj.deltaY() <= -41){
+
+                obj.y = obj.originalY;
+
+            }
+        }
+
+        var p = {x:25, y:25};
+        var velo=6, corner=30, rad=20;
+        var ball={x:p.x, y:p.y};
+
+        var moveX=Math.cos(Math.PI/180*corner) * velo;
+        var moveY=Math.sin(Math.PI/180*corner) * velo;
+
+
+        function animate1(obj){
+            context.clearRect(0,0, elem.width, elem.height);
+
+            if(obj.x>elem.width-rad || obj.x<rad) moveX=-moveX;
+            if(obj.y>elem.height-rad || obj.y<rad) moveY=-moveY;
+
+            obj.x +=moveX;
+            obj.y +=moveY;
+
+            context.beginPath();
+
+            context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
+
+            context.closePath();
+        }
+
+        //Creates objects and adds to imageArray
+        //Then modifies the objects based on where on the canvas they will be
+        //Currently set for a 5 x 4 grid on x=1000 size canvas
+        function init(){
+            for(var j = 0; j < 16; j++){
+
+                imageArray[j] = new MakePictureObj();
+
+                //base case, start of loop BUT still step x by 200
+                if(j == 0 && x == 0){
+                    imageArray[j].originalX = 0;
+                    imageArray[j].originalY = 0;
+
+                }else if (j != 0 && x < 800){
+                    //NOT the beginning of the loop && not the end
+                    x += 200;
+                    imageArray[j].originalX = x;
+                    imageArray[j].originalY = y;
+                    imageArray[j].x = x;
+                    imageArray[j].y = y;
+
+                }else {
+                    //The END reset
+                    y += 200;
+                    x = 0;
+                    imageArray[j].originalX = x;
+                    imageArray[j].originalY = y;
+                    imageArray[j].x = 0;
+                    imageArray[j].y = y;
+                }
+                if ((j%2) == 0){
+                    imageArray[j].src = "img/apple.png";
+                }
+            }
+        }
+
+        //Interval that defines function to be called and time in ms
+        window.setInterval(moveStuff, 400);
+        //setInterval(animate1, 80);
+        //Moves all the elements in the imageArray, but only every fourth
+        function moveStuff(){
+
+
+            context.clearRect(0,0, elem.width, elem.height);
+            for(var i = 0; i < imageArray.length; i++){
+                var obj = imageArray[i];
+                /*var tempRandom = Math.floor((Math.random() * imageArray.length));
+
+                var tempObject = imageArray[tempRandom];
+                console.log("tempRandom " + tempObject);
+                //tempObject.animate();
+                animate1(tempObject);
+                //Don't know why I need these two unless the Image function isn't
+                //being called when the object is initially created but does so below
+                var tempImg = imageArray[tempRandom].image;
+                tempImg.src = imageArray[tempRandom].src;
+
+                context.drawImage(imageArray[tempRandom].image, imageArray[tempRandom].x, imageArray[tempRandom].y, imageArray[tempRandom].sizeX, imageArray[tempRandom].sizeY);
+                if (i%4){
+                    i++;
+                }*/
+
+
+                var tempImg = imageArray[i].image;
+                tempImg.src = imageArray[i].src;
+
+
+                if(obj.x>elem.width-rad || obj.x<rad) moveX=-moveX;
+                if(obj.y>elem.height-rad || obj.y<rad) moveY=-moveY;
+
+                obj.x +=moveX;
+                obj.y +=moveY;
+
+                context.beginPath();
+
+                context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
+                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                context.closePath();
+            }
+        }
+        //Draws the image after being loaded
+        window.onload = function() {
+
+            for(var i = 0; i < imageArray.length; i++){
+
+                //Don't know why I need these two unless the Image function isn't
+                //being called when the object is initially created but does so below
+                var tempImg = imageArray[i].image;
+                tempImg.src = imageArray[i].src;
+
+                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+            }
+        };
+    </script>
     </body>
 </html>
