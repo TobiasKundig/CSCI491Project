@@ -1,0 +1,38 @@
+footer{
+    padding: 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    clear: left;
+}
+
+.footerLinks{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+/*Unvisited Link*/
+a:link{
+    color: white;
+}
+
+/*visited link*/
+a:visited{
+    color:white;
+    text-decoration: none;
+}
+
+/* mouse over link*/
+a:hover{
+    text-decoration: underline;
+}
+
+/*selected link*/
+a:active{
+    text-decoration: none;
+    font-style: italic;
+}
