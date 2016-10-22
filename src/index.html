@@ -46,9 +46,7 @@
             </header>
         </div>
         <div class="jumbotron" id="jumbotron">
-            <canvas id="myCanvas" width="1000" height="600">
-                <img src="img/Logo.png" id="image1" width="805" height="602">
-            </canvas>
+            <canvas id="myCanvas" width="1000" height="600"></canvas>
         </div>
         <div id="footer"></div>
     </div>
@@ -109,31 +107,25 @@
         }
 
         //changes the X and Y values of the Picture object with a little bounds detection
-        function changeCoordinates(obj){
+        function animateRight(obj){
 
-            var tempRandom = (Math.random() * 4) + -2;
-
-            //console.log("DeltaX " + obj.deltaX());
-            //console.log("DeltaY " + obj.deltaY());
-
-            if (obj.deltaX() <= 40 && obj.deltaX() >= -40) {
-                obj.x += tempRandom;
-
-            }else if (obj.deltaX() >= 41 || obj.deltaX() <= -41){
-                //console.log("DeltaY " + obj.originalX);
+            if(obj.x > 840){
                 obj.x = obj.originalX;
+            }else {
+                obj.x += 1;
             }
+        }
+        function animateLeft(obj){
 
-            if (obj.deltaY() <= 40 && obj.deltaY() >= -40) {
-                obj.y += tempRandom;
-            }else if(obj.deltaY() >= 41 || obj.deltaY() <= -41){
-
-                obj.y = obj.originalY;
+            if(obj.x < 0){
+                obj.x = obj.originalX;
+            }else {
+                obj.x -= 1;
             }
         }
 
         var p = {x:25, y:25};
-        var velo=6, corner=30, rad=40;
+        var velo=1, corner=60, rad=200;
 
         var moveX=Math.cos(Math.PI/180*corner) * velo;
         var moveY=Math.sin(Math.PI/180*corner) * velo;
@@ -185,17 +177,25 @@
                 if ((j%2) == 0){
                     imageArray[j].src = "img/apple.png";
                     imageArray[j].animationStrategy = function(){
-                        changeCoordinates(this);
+                        animateRight(this);
+                    }
+                }
+                if ((j%8) == 0){
+                    imageArray[j].src = "img/apple.png";
+                    imageArray[j].animationStrategy = function(){
+                        animateLeft(this);
                     }
                 }
             }
         }
 
         //Interval that defines function to be called and time in ms
-        window.setInterval(moveStuff, 100);
+        //window.setInterval(moveStuff, 100);
         //setInterval(animate1, 80);
         //Moves all the elements in the imageArray, but only every fourth
         function moveStuff(){
+
+            requestAnimationFrame(moveStuff);
 
             context.clearRect(0,0, elem.width, elem.height);
 
@@ -211,6 +211,15 @@
 
             }
         }
+
+        function draw(obj){
+            var tempX = obj.x, tempY = obj.y;
+
+            if(fadePercentage>100){return;}
+            requestAnimationFrame(draw());
+            context.clearRect(obj.x, obj.y, tempX + 200, tempY + 200)
+
+        }
         //Draws the image after being loaded
         window.onload = function() {
 
@@ -223,6 +232,7 @@
 
                 context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
             }
+            moveStuff();
         };
     </script>
          <script>
