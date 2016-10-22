@@ -84,14 +84,17 @@
         //Object for the images on the canvas, can be moved and resized
         //resourced and instantiates Image(), Need to make type of image though
         function MakePictureObj(){
+            new Image(this);
             this.image= new Image();
-            this.src= 'img/Logo.png';
+            this.src= 'img/picture2.jpg';
             this.x = 0;
             this.y = 0;
             this.sizeX = 200;
             this.sizeY = 200;
             this.originalX = 9999;
             this.originalY = 9999;
+            this.fadeIn = false;
+            this.fadeOut = false;
 
             this.animationStrategy = function(){
                 animate1(this);
@@ -126,6 +129,7 @@
 
         var p = {x:25, y:25};
         var velo=1, corner=60, rad=200;
+        var fadePercentage = 0;
 
         var moveX=Math.cos(Math.PI/180*corner) * velo;
         var moveY=Math.sin(Math.PI/180*corner) * velo;
@@ -175,15 +179,17 @@
                     imageArray[j].y = y;
                 }
                 if ((j%2) == 0){
-                    imageArray[j].src = "img/apple.png";
+                    imageArray[j].src = "img/picture1.jpg";
                     imageArray[j].animationStrategy = function(){
                         animateRight(this);
                     }
                 }
                 if ((j%8) == 0){
-                    imageArray[j].src = "img/apple.png";
+                    imageArray[j].fadeIn = true;
+                    imageArray[j].src = "img/picture3.jpg";
                     imageArray[j].animationStrategy = function(){
                         animateLeft(this);
+
                     }
                 }
             }
@@ -202,24 +208,64 @@
             for(var i = 0; i < imageArray.length; i++){
                 var obj = imageArray[i];
 
-                var tempImg = imageArray[i].image;
-                tempImg.src = imageArray[i].src;
-
                 obj.animationStrategy();
 
-                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                if (imageArray[i].fadeIn == true || imageArray[i].fadeOut == true){
+                    if (fadePercentage >= 100 && imageArray[i].fadeIn == true){
 
+                        imageArray[i].fadeIn = false;
+                        imageArray[i].fadeOut = true;
+
+                        var tempSRC = imageArray[i].image;
+                        tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
+
+                        context.save();
+                        context.globalAlpha = fadePercentage/100;
+                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                        context.restore();
+
+                    }else if (fadePercentage < 100 && imageArray[i].fadeIn == true){
+                        context.save();
+                        context.globalAlpha = fadePercentage/100;
+                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                        context.restore();
+                        fadePercentage+= .5;
+                        console.log("Fade Percentage " + fadePercentage);
+                    }else if(fadePercentage >= 0 && imageArray[i].fadeOut == true){
+                        context.save();
+                        context.globalAlpha = fadePercentage/100;
+                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                        context.restore();
+                        fadePercentage -= .5;
+                        console.log("Fade Percentage " + fadePercentage);
+
+                    }else if(fadePercentage < 0 && imageArray[i].fadeOut == true){
+                        imageArray[i].fadeOut = false;
+                        imageArray[i].fadeIn = true;
+
+                        tempSRC = imageArray[i].image;
+                        tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
+
+                        context.save();
+                        context.globalAlpha = fadePercentage/100;
+                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                        context.restore();
+                    }
+
+                }
+                else{
+                    context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                }
             }
         }
 
-        function draw(obj){
-            var tempX = obj.x, tempY = obj.y;
-
-            if(fadePercentage>100){return;}
-            requestAnimationFrame(draw());
-            context.clearRect(obj.x, obj.y, tempX + 200, tempY + 200)
+        function draw(image, opacity){
+            context.save();
+            context.globalAlpha=opacity;
+            context.drawImage(image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
 
         }
+
         //Draws the image after being loaded
         window.onload = function() {
 
