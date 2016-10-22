@@ -222,28 +222,20 @@
         }
 
         function fade(obj){
-            if (fadePercentage >= 100 && obj.fadeIn == true){
+            
+            context.save();
+            context.globalAlpha = fadePercentage/100;
+            context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+            context.restore();
 
+            if (fadePercentage >= 100 && obj.fadeIn == true){
                 obj.fadeIn = false;
                 obj.fadeOut = true;
 
-                context.save();
-                context.globalAlpha = fadePercentage/100;
-                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
-                context.restore();
-
             }else if (fadePercentage < 100 && obj.fadeIn == true){
-                context.save();
-                context.globalAlpha = fadePercentage/100;
-                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
-                context.restore();
                 fadePercentage+= .5;
 
             }else if(fadePercentage >= 0 && obj.fadeOut == true){
-                context.save();
-                context.globalAlpha = fadePercentage/100;
-                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
-                context.restore();
                 fadePercentage -= .5;
 
             }else if(fadePercentage < 0 && obj.fadeOut == true){
@@ -252,11 +244,6 @@
 
                 tempSRC = obj.image;
                 tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
-
-                context.save();
-                context.globalAlpha = fadePercentage/100;
-                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
-                context.restore();
             }
         }
         //Draws the image after being loaded
