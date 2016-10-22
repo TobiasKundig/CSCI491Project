@@ -29,8 +29,7 @@
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -96,21 +95,8 @@
             this.originalX = 9999;
             this.originalY = 9999;
 
-            //animates the object!! Sadly I have to redraw all the objects?!
-            this.animate = function(){
-                changeCoordinates(this);
-                context.clearRect(0,0, elem.width, elem.height);
-
-                for(var i = 0; i < imageArray.length; i++){
-
-                    //Don't know why I need these two unless the Image function isn't
-                    //being called when the object is initially created but does so below
-                    var tempImg = imageArray[i].image;
-                    tempImg.src = imageArray[i].src;
-
-                    context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-
-                }
+            this.animationStrategy = function(){
+                animate1(this);
             };
 
             this.deltaX = function(){
@@ -143,20 +129,17 @@
             }else if(obj.deltaY() >= 41 || obj.deltaY() <= -41){
 
                 obj.y = obj.originalY;
-
             }
         }
 
         var p = {x:25, y:25};
-        var velo=6, corner=30, rad=20;
-        var ball={x:p.x, y:p.y};
+        var velo=6, corner=30, rad=40;
 
         var moveX=Math.cos(Math.PI/180*corner) * velo;
         var moveY=Math.sin(Math.PI/180*corner) * velo;
 
-
         function animate1(obj){
-            context.clearRect(0,0, elem.width, elem.height);
+            //context.clearRect(0,0, elem.width, elem.height);
 
             if(obj.x>elem.width-rad || obj.x<rad) moveX=-moveX;
             if(obj.y>elem.height-rad || obj.y<rad) moveY=-moveY;
@@ -165,9 +148,7 @@
             obj.y +=moveY;
 
             context.beginPath();
-
             context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
-
             context.closePath();
         }
 
@@ -203,52 +184,31 @@
                 }
                 if ((j%2) == 0){
                     imageArray[j].src = "img/apple.png";
+                    imageArray[j].animationStrategy = function(){
+                        changeCoordinates(this);
+                    }
                 }
             }
         }
 
         //Interval that defines function to be called and time in ms
-        window.setInterval(moveStuff, 400);
+        window.setInterval(moveStuff, 100);
         //setInterval(animate1, 80);
         //Moves all the elements in the imageArray, but only every fourth
         function moveStuff(){
 
-
             context.clearRect(0,0, elem.width, elem.height);
+
             for(var i = 0; i < imageArray.length; i++){
                 var obj = imageArray[i];
-                /*var tempRandom = Math.floor((Math.random() * imageArray.length));
-
-                var tempObject = imageArray[tempRandom];
-                console.log("tempRandom " + tempObject);
-                //tempObject.animate();
-                animate1(tempObject);
-                //Don't know why I need these two unless the Image function isn't
-                //being called when the object is initially created but does so below
-                var tempImg = imageArray[tempRandom].image;
-                tempImg.src = imageArray[tempRandom].src;
-
-                context.drawImage(imageArray[tempRandom].image, imageArray[tempRandom].x, imageArray[tempRandom].y, imageArray[tempRandom].sizeX, imageArray[tempRandom].sizeY);
-                if (i%4){
-                    i++;
-                }*/
-
 
                 var tempImg = imageArray[i].image;
                 tempImg.src = imageArray[i].src;
 
+                obj.animationStrategy();
 
-                if(obj.x>elem.width-rad || obj.x<rad) moveX=-moveX;
-                if(obj.y>elem.height-rad || obj.y<rad) moveY=-moveY;
-
-                obj.x +=moveX;
-                obj.y +=moveY;
-
-                context.beginPath();
-
-                context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
                 context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-                context.closePath();
+
             }
         }
         //Draws the image after being loaded
