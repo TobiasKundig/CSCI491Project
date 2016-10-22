@@ -51,8 +51,6 @@
         <div id="footer"></div>
     </div>
 
-
-
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -210,62 +208,57 @@
 
                 obj.animationStrategy();
 
+                //If it's the object to be faded
                 if (imageArray[i].fadeIn == true || imageArray[i].fadeOut == true){
-                    if (fadePercentage >= 100 && imageArray[i].fadeIn == true){
 
-                        imageArray[i].fadeIn = false;
-                        imageArray[i].fadeOut = true;
-
-                        var tempSRC = imageArray[i].image;
-                        tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
-
-                        context.save();
-                        context.globalAlpha = fadePercentage/100;
-                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-                        context.restore();
-
-                    }else if (fadePercentage < 100 && imageArray[i].fadeIn == true){
-                        context.save();
-                        context.globalAlpha = fadePercentage/100;
-                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-                        context.restore();
-                        fadePercentage+= .5;
-                        console.log("Fade Percentage " + fadePercentage);
-                    }else if(fadePercentage >= 0 && imageArray[i].fadeOut == true){
-                        context.save();
-                        context.globalAlpha = fadePercentage/100;
-                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-                        context.restore();
-                        fadePercentage -= .5;
-                        console.log("Fade Percentage " + fadePercentage);
-
-                    }else if(fadePercentage < 0 && imageArray[i].fadeOut == true){
-                        imageArray[i].fadeOut = false;
-                        imageArray[i].fadeIn = true;
-
-                        tempSRC = imageArray[i].image;
-                        tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
-
-                        context.save();
-                        context.globalAlpha = fadePercentage/100;
-                        context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
-                        context.restore();
-                    }
-
+                    //call fade on the object that's flagged to be faded
+                    fade(imageArray[i]);
                 }
+                //It's NOT the object to be faded
                 else{
                     context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
                 }
             }
         }
 
-        function draw(image, opacity){
-            context.save();
-            context.globalAlpha=opacity;
-            context.drawImage(image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+        function fade(obj){
+            if (fadePercentage >= 100 && obj.fadeIn == true){
 
+                obj.fadeIn = false;
+                obj.fadeOut = true;
+
+                context.save();
+                context.globalAlpha = fadePercentage/100;
+                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+                context.restore();
+
+            }else if (fadePercentage < 100 && obj.fadeIn == true){
+                context.save();
+                context.globalAlpha = fadePercentage/100;
+                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+                context.restore();
+                fadePercentage+= .5;
+
+            }else if(fadePercentage >= 0 && obj.fadeOut == true){
+                context.save();
+                context.globalAlpha = fadePercentage/100;
+                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+                context.restore();
+                fadePercentage -= .5;
+
+            }else if(fadePercentage < 0 && obj.fadeOut == true){
+                obj.fadeOut = false;
+                obj.fadeIn = true;
+
+                tempSRC = obj.image;
+                tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
+
+                context.save();
+                context.globalAlpha = fadePercentage/100;
+                context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+                context.restore();
+            }
         }
-
         //Draws the image after being loaded
         window.onload = function() {
 
