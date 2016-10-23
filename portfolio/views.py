@@ -25,7 +25,7 @@ def detail(request, account):
 
     account = get_object_or_404(Account, username=account)
     #portfolio = get_object_or_404(Portfolio, portfolio=account)
-    return render(request, 'portfolio/detail.html', {'this_account': account})
+    return render(request, 'portfolio/portfolio.html', {'this_account': account})
 
 
 def login(request):
