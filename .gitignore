@@ -1,2 +1,7 @@
 archive
 node_modules
+.idea
+__pycache__/
+*.py[cod]
+*$py.class
+
