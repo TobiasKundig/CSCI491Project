@@ -46,14 +46,10 @@
             </header>
         </div>
         <div class="jumbotron" id="jumbotron">
-            <canvas id="myCanvas" width="1000" height="600">
-                <img src="img/Logo.png" id="image1" width="805" height="602">
-            </canvas>
+            <canvas id="myCanvas" width="1000" height="600"></canvas>
         </div>
         <div id="footer"></div>
     </div>
-
-
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -86,14 +82,17 @@
         //Object for the images on the canvas, can be moved and resized
         //resourced and instantiates Image(), Need to make type of image though
         function MakePictureObj(){
+            new Image(this);
             this.image= new Image();
-            this.src= 'img/Logo.png';
+            this.src= 'img/picture2.jpg';
             this.x = 0;
             this.y = 0;
             this.sizeX = 200;
             this.sizeY = 200;
             this.originalX = 9999;
             this.originalY = 9999;
+            this.fadeIn = false;
+            this.fadeOut = false;
 
             this.animationStrategy = function(){
                 animate1(this);
@@ -109,31 +108,26 @@
         }
 
         //changes the X and Y values of the Picture object with a little bounds detection
-        function changeCoordinates(obj){
+        function animateRight(obj){
 
-            var tempRandom = (Math.random() * 4) + -2;
-
-            //console.log("DeltaX " + obj.deltaX());
-            //console.log("DeltaY " + obj.deltaY());
-
-            if (obj.deltaX() <= 40 && obj.deltaX() >= -40) {
-                obj.x += tempRandom;
-
-            }else if (obj.deltaX() >= 41 || obj.deltaX() <= -41){
-                //console.log("DeltaY " + obj.originalX);
+            if(obj.x > 840){
                 obj.x = obj.originalX;
+            }else {
+                obj.x += 1;
             }
+        }
+        function animateLeft(obj){
 
-            if (obj.deltaY() <= 40 && obj.deltaY() >= -40) {
-                obj.y += tempRandom;
-            }else if(obj.deltaY() >= 41 || obj.deltaY() <= -41){
-
-                obj.y = obj.originalY;
+            if(obj.x < 0){
+                obj.x = obj.originalX;
+            }else {
+                obj.x -= 1;
             }
         }
 
         var p = {x:25, y:25};
-        var velo=6, corner=30, rad=40;
+        var velo=1, corner=60, rad=200;
+        var fadePercentage = 0;
 
         var moveX=Math.cos(Math.PI/180*corner) * velo;
         var moveY=Math.sin(Math.PI/180*corner) * velo;
@@ -183,32 +177,73 @@
                     imageArray[j].y = y;
                 }
                 if ((j%2) == 0){
-                    imageArray[j].src = "img/apple.png";
+                    imageArray[j].src = "img/picture1.jpg";
                     imageArray[j].animationStrategy = function(){
-                        changeCoordinates(this);
+                        animateRight(this);
+                    }
+                }
+                if ((j%8) == 0){
+                    imageArray[j].fadeIn = true;
+                    imageArray[j].src = "img/picture3.jpg";
+                    imageArray[j].animationStrategy = function(){
+                        animateLeft(this);
+
                     }
                 }
             }
         }
 
         //Interval that defines function to be called and time in ms
-        window.setInterval(moveStuff, 100);
+        //window.setInterval(moveStuff, 100);
         //setInterval(animate1, 80);
         //Moves all the elements in the imageArray, but only every fourth
         function moveStuff(){
+
+            requestAnimationFrame(moveStuff);
 
             context.clearRect(0,0, elem.width, elem.height);
 
             for(var i = 0; i < imageArray.length; i++){
                 var obj = imageArray[i];
 
-                var tempImg = imageArray[i].image;
-                tempImg.src = imageArray[i].src;
-
                 obj.animationStrategy();
 
-                context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                //If it's the object to be faded
+                if (imageArray[i].fadeIn == true || imageArray[i].fadeOut == true){
 
+                    //call fade on the object that's flagged to be faded
+                    fade(imageArray[i]);
+                }
+                //It's NOT the object to be faded
+                else{
+                    context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                }
+            }
+        }
+
+        function fade(obj){
+
+            context.save();
+            context.globalAlpha = fadePercentage/100;
+            context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+            context.restore();
+
+            if (fadePercentage >= 100 && obj.fadeIn == true){
+                obj.fadeIn = false;
+                obj.fadeOut = true;
+
+            }else if (fadePercentage < 100 && obj.fadeIn == true){
+                fadePercentage+= .5;
+
+            }else if(fadePercentage >= 0 && obj.fadeOut == true){
+                fadePercentage -= .5;
+
+            }else if(fadePercentage < 0 && obj.fadeOut == true){
+                obj.fadeOut = false;
+                obj.fadeIn = true;
+
+                tempSRC = obj.image;
+                tempSRC.src = imageArray[Math.floor(Math.random()*(16))].src;
             }
         }
         //Draws the image after being loaded
@@ -223,6 +258,7 @@
 
                 context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
             }
+            moveStuff();
         };
     </script>
          <script>
