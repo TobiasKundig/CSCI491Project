@@ -1,0 +1,42 @@
+.image-landscape {
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-landscape img {
+    width: auto;
+    height: 100%;
+    margin-left: -50px;
+
+}
+
+.top{
+    margin-top: 100px;
+}
+
+hr{
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+.profileHead-name{
+    font-size: 28px;
+    display: block;
+    text-align: center;
+    
+}
+
+.profileHead-about{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    
+}
