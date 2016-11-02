@@ -1,0 +1,42 @@
+{% extends "portfolio/base.html" %}
+{% load staticfiles %}
+<!doctype html>
+
+<html class="no-js" lang="">
+    <head>
+
+        {% block extra_head %}
+             <link rel="stylesheet" href="{% static 'src/css/portfolio.css' %}">
+        {% endblock %}
+
+    </head>
+    <body>
+
+    {% block content %}
+        <!-- Add your site or application content here -->
+
+        <div class="default">
+        <div class="top">
+        <p>This is a portfolio detail page.</p>
+
+        <p>user:  {{ this_account.username }}</p>
+
+
+        <img class="img-circle" src="{% static 'src/img/default_picture.jpg' %}">
+        <p>Edit Your Portfolio Description</p>
+        </div><!-- top -->
+            <div class="content"><!-- portfolio content -->
+
+                <img id="myImage" src="//:0">
+                <img id="myImage2" src="//:0">
+                <img id="myImage3" src="//:0">
+                <img id="myImage4" src="//:0">
+                <img id="myImage5" src="//:0">
+                <img id="myImage6" src="//:0">
+            </div>
+        </div><!-- portfolio default -->
+
+    {% endblock content %}
+
+    </body>
+</html>

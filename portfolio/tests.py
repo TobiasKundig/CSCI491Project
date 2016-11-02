@@ -1,14 +1,32 @@
 from django.test import TestCase
-from .models import Account
+from .models import Portfolio
 
-class UserTestCase(TestCase):
+class URLTestCase(TestCase):
     def setUp(self):
-        Account.objects.create(name="lion", sound="roar")
-        Account.objects.create(name="cat", sound="meow")
+        return
 
-    def test_animals_can_speak(self):
-        """Animals that can speak are correctly identified"""
-        lion = Account.objects.get(name="lion")
-        cat = Account.objects.get(name="cat")
-        self.assertEqual(lion.speak(), 'The lion says "roar"')
-        self.assertEqual(cat.speak(), 'The cat says "meow"')
+
+    def test_index(self):
+
+            resp = self.client.get('/portfolio/')
+            self.assertEqual(resp.status_code, 200)
+
+
+    def test_login(self):
+
+            resp = self.client.get('/login/')
+            self.assertEqual(resp.status_code, 200)
+
+
+    def test_register(self):
+        resp = self.client.get('/register/')
+        self.assertEqual(resp.status_code, 200)
+
+
+
+class ViewsTestCase(TestCase):
+    def test_portfolio(self):
+        resp = self.client.get('/portfolio/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue('latest_poll_list' in resp.context)
+        self.assertEqual([poll.pk for poll in resp.context['latest_poll_list']], [1])
