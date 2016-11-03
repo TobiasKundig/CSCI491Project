@@ -25,29 +25,24 @@
     </head>
 
     <body>
-
-
-    <div class="container">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
+
                 <div class="collapse navbar-collapse" id="myNavbar">
 
                     <ul class="nav navbar-nav navbar-right">
                         <p class="nav navbar-text" style="display: none;">Logged in as</p>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+
+                            <form id="register" class="navbar-form navbar-right" role="form" onsubmit="return false;">
+                                <button type="submit" class="btn btn-primary" value="register">Register</button>
+                            </form>
                             <form id="signin" class="navbar-form navbar-right" role="form" onsubmit="return false;">
 
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="username" type="text" class="form-control" name="email" value="" placeholder="Username" required="required"/>
+                                    <input id="username" type="text" class="form-control" name="email" value="" placeholder="Username"/>
                                 </div>
 
                                 <div class="input-group">
@@ -56,6 +51,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary" value="Submit">Login</button>
+
                             </form>
 
                         </div>
@@ -63,6 +59,8 @@
                 </div>
             </div>
         </nav>
+
+    <div class="container">
 
 
     {% block content %}
@@ -72,11 +70,43 @@
 
     {% endblock content %}
 
-        <div id="footer"></div>
-    </div>
 
+    </div>
+        <div id="footer"></div>
     <script>
             $("#footer").load("{% static 'src/pages/footer.html' %}");
+
+            $("#register").submit(function(){
+                console.log("registering");
+                window.location.href="register.html";
+            });
+            $('#signin').submit(function(){
+
+
+                /*var username = getCookie("username");
+                var getPassword = getCookie("password");
+                var enteredPassword = document.getElementById("password");
+                var enteredUsername = document.getElementById("username");
+
+                console.log("Cookie get name " + username + " " + enteredUsername.value + " end.");
+                if (username == enteredUsername.value) {
+
+                    if (getPassword != enteredPassword.value){
+                        alert("Passwords didn't match!");
+                        window.location.href="index.html";
+                    }else{
+                        window.location.href = "main.html";
+                    }
+
+                } else {
+                    alert("Usernames didn't match");
+                    window.location.href="index.html";
+                }*/
+            });
+
+        function register(){
+
+        }
     </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
