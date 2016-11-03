@@ -12,24 +12,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock head_meta %}
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="apple-touch-icon" href="{% static 'src/css/apple-touch-icon.png' %}">
-        <link rel="stylesheet" href="{% static 'src/css/main.css' %}">
-        <link rel="stylesheet" href="{% static 'src/css/header.css' %}">
-        <link rel="stylesheet" href="{% static 'src/css/footerStylesheet.css' %}">
 
-        <script src="{% static 'src/js/vendor/modernizr-2.8.3.min.js' %}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="../js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-        <script src="{% static 'src/js/plugins.js' %}"></script>
-        <script src="{% static 'src/js/main.js' %}"></script>
-
-
-        <link rel="stylesheet" href="{% static 'src/css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'src/style/avgrund.css' %}">
 
         <title>MyWork | {% block title %}Home {% endblock title %}</title>
 
@@ -93,9 +78,7 @@
     <script>
             $("#footer").load("{% static 'src/pages/footer.html' %}");
     </script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-    <script src="{% static 'src/js/plugins.js' %}"></script>
-    <script src="{% static 'src/js/main.js' %}"></script>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
