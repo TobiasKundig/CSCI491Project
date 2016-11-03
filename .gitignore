@@ -4,5 +4,5 @@ node_modules
 __pycache__/
 *.py[cod]
 *$py.class
-MyWork/settings.py
+/MyWork/settings.py
 
