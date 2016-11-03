@@ -11,8 +11,9 @@
 
 <div class="container">
     <div class="jumbotron" id="jumbotron">
-            <canvas id="myCanvas" width="1000" height="600"></canvas>
-        </div>
+
+        <canvas id="myCanvas" width="1000" height="600"></canvas>
+    </div>
 
 </div>
 
@@ -28,6 +29,7 @@
         elem.style.height = '100%';
         elem.style.width = '100%';
         context = elem.getContext("2d");
+
 
         //The initialization method that... initializes
         init();
@@ -97,6 +99,7 @@
             context.beginPath();
             context.arc(obj.x, obj.y, rad, 0 , Math.PI*2,false);
             context.closePath();
+
         }
 
         //Creates objects and adds to imageArray
@@ -146,30 +149,39 @@
             }
         }
 
-        //Interval that defines function to be called and time in ms
-        //window.setInterval(moveStuff, 100);
-        //setInterval(animate1, 80);
         //Moves all the elements in the imageArray, but only every fourth
         function moveStuff(){
 
             requestAnimationFrame(moveStuff);
 
             context.clearRect(0,0, elem.width, elem.height);
-
+            context.shadowColor = '#999';
+            context.shadowBlur = 20;
+            context.shadowOffsetX = 15;
+            context.shadowOffsetY = 15;
             for(var i = 0; i < imageArray.length; i++){
                 var obj = imageArray[i];
 
                 obj.animationStrategy();
 
                 //If it's the object to be faded
-                if (imageArray[i].fadeIn == true || imageArray[i].fadeOut == true){
+                if (obj.fadeIn == true || obj.fadeOut == true){
 
                     //call fade on the object that's flagged to be faded
-                    fade(imageArray[i]);
+                    fade(obj);
                 }
                 //It's NOT the object to be faded
                 else{
-                    context.drawImage(imageArray[i].image, imageArray[i].x, imageArray[i].y, imageArray[i].sizeX, imageArray[i].sizeY);
+                    context.save();
+                    roundedImage(obj.x, obj.y, 200, 200, 20);
+                    context.clip();
+                    context.shadowColor = '#999';
+                    context.shadowBlur = 20;
+                    context.shadowOffsetX = 15;
+                    context.shadowOffsetY = 15;
+                    context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
+                    context.restore();
+
                 }
             }
         }
@@ -178,8 +190,11 @@
 
             context.save();
             context.globalAlpha = fadePercentage/100;
+            roundedImage(obj.x, obj.y, 200, 200, 20);
+            context.clip();
             context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
             context.restore();
+
 
             if (fadePercentage >= 100 && obj.fadeIn == true){
                 obj.fadeIn = false;
@@ -213,6 +228,22 @@
             }
             moveStuff();
         };
+
+        function roundedImage(x, y, width, height, radius) {
+
+            context.beginPath();
+            context.moveTo(x + radius, y);
+            context.lineTo(x + width - radius, y);
+            context.quadraticCurveTo(x + width, y, x + width, y + radius);
+            context.lineTo(x + width, y + height - radius);
+            context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            context.lineTo(x + radius, y + height);
+            context.quadraticCurveTo(x, y + height, x, y + height - radius);
+            context.lineTo(x, y + radius);
+            context.quadraticCurveTo(x, y, x + radius, y);
+            context.closePath();
+
+        }
     </script>
     {% endblock content %}
 
