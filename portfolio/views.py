@@ -4,42 +4,41 @@ from django.contrib.auth.models import User
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
-from django.views.generic import View
+from django.views.generic import View, FormView, UpdateView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 
-
+from .forms import PortfolioForm
+from .models import Portfolio
 #forms
 from .forms import User_Registration
 
 #always pass in a request and return a response
 def index(request):
-     #check if logged in
 
-
-     all_users = User.objects.all()
-
-     return render(request, 'portfolio/index.html', {'all_users': all_users})
+     return render(request, 'portfolio/index.html')
    # return render(request,'portfolio/index.html')
 
+
+# profile and detail are different ways to access a portfolio. It depends on context.
 def profile(request):
-    profile = get_object_or_404(User, username=request.user)
+    #user object
+    user = get_object_or_404(User, username=request.user)
 
+    userPortfolio = get_object_or_404(Portfolio, user = user.pk )
 
+    return render(request, 'portfolio/portfolio.html', {'this_account': userPortfolio})
 
-    return render(request, 'portfolio/portfolio.html', {'this_account': profile})
 #present the details of a portfolio.
 def detail(request, user):
-    #if not request.user.is_authenticated():
-        #return render(request, 'portfolio/login.html')
-    #else:
 
-    #profile object = Model, where username=user
-    profile = get_object_or_404(User,username=user)
-
+    user = get_object_or_404(User,username=user)
+    userPortfolio = get_object_or_404(Portfolio, user=user.pk)
     #passback the object. The template will ask for properties.
-    return render(request, 'portfolio/portfolio.html', {'this_account': profile})
+    return render(request, 'portfolio/portfolio.html', {'this_account': userPortfolio})
+
+
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
@@ -65,6 +64,26 @@ class ProfileView(View):
         return None
     def post(self, request, *args, **kwargs):
         return None
+
+
+class PortfolioUpdate(UpdateView):
+    #used to override the primary key as an identifier
+    def get(self, request, *args, **kwargs):
+        model = Portfolio
+        fields = ['name']
+        form = PortfolioForm
+
+
+        user = get_object_or_404(User, username=request.user)
+        userPortfolio = get_object_or_404(Portfolio, user=user.pk)
+
+
+
+        return render(request, 'portfolio/edit.html', {'this_account': userPortfolio}, {'form': form})
+        #if user.is_active:
+
+        #else:
+         #   return HttpResponseRedirect(reverse('portfolio:login'))
 
 class LoginView(View):
 

@@ -7,4 +7,8 @@ class User_Registration(forms.Form):
     username = forms.CharField(label='username', max_length=100)
     password = forms.CharField(max_length=32, widget=forms.PasswordInput)
 
+class PortfolioForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    header = forms.CharField(widget=forms.Textarea)
+    style = forms.ChoiceField(choices=["Light","Dark"])
 

@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 class Portfolio(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     header = models.CharField(max_length=60)
     style = models.CharField(max_length=30)
