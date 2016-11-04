@@ -16,10 +16,10 @@
     </div>
 
 </div>
-    
+
     <script>
         // Set up the worker
-        /*var running = false;
+        var running = false;
         var worker = new Worker("{% static 'src/js/movingPictures.js'%}"); // path is relative to the main HTML file
         worker.addEventListener('message', function (event) {
 
@@ -27,7 +27,8 @@
                 running = false;
                 console.log("Worker Done");
             }
-        });*/
+        });
+        worker.postMessage()
     </script>
      <script type="text/javascript">
 
