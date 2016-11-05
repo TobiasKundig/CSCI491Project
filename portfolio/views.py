@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 
-from .forms import PortfolioForm
+
 from .models import Portfolio
 #forms
 from .forms import User_Registration
