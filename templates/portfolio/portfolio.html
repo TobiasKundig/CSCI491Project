@@ -1,19 +1,32 @@
 {% extends "portfolio/base.html" %}
 {% load staticfiles %}
-<!doctype html>
 
-<html class="no-js" lang="">
-    <head>
+
 
         {% block extra_head %}
-             <link rel="stylesheet" href="{% static 'src/css/portfolio.css' %}">
+            <link rel="stylesheet" href="{% static 'src/css/profileHeader.css' %}"
         {% endblock %}
 
-    </head>
-    <body>
+
+
+
 
     {% block content %}
         <!-- Add your site or application content here -->
+
+
+        <hr class="top">
+        <div class="image-landscape">
+        <img src="{% static 'src/img/IMG_4060.jpg' %}">
+        </div>
+
+        <p class="profileHead-name">Name Text</p>
+        <p class="profileHead-about">About Text. About Text. About Text. About Text. About Text. About Text.</p>
+        <hr>
+
+        <div class="profile-info-boxes">
+            <p class="profile-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+        </div>
 
         <div class="default">
         <div class="top">
@@ -24,6 +37,9 @@
 
         <img class="img-circle" src="{% static 'src/img/default_picture.jpg' %}">
         <p>Edit Your Portfolio Description</p>
+
+
+        <hr>
         </div><!-- top -->
             <div class="content"><!-- portfolio content -->
 
@@ -37,6 +53,3 @@
         </div><!-- portfolio default -->
 
     {% endblock content %}
-
-    </body>
-</html>

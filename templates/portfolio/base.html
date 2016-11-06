@@ -12,24 +12,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock head_meta %}
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="apple-touch-icon" href="{% static 'src/css/apple-touch-icon.png' %}">
-        <link rel="stylesheet" href="{% static 'src/css/main.css' %}">
-        <link rel="stylesheet" href="{% static 'src/css/header.css' %}">
-        <link rel="stylesheet" href="{% static 'src/css/footerStylesheet.css' %}">
 
-        <script src="{% static 'src/js/vendor/modernizr-2.8.3.min.js' %}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="../js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-        <script src="{% static 'src/js/plugins.js' %}"></script>
-        <script src="{% static 'src/js/main.js' %}"></script>
-
-
-        <link rel="stylesheet" href="{% static 'src/css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'src/style/avgrund.css' %}">
 
         <title>MyWork | {% block title %}Home {% endblock title %}</title>
 
@@ -40,29 +25,24 @@
     </head>
 
     <body>
-
-
-    <div class="container">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
+
                 <div class="collapse navbar-collapse" id="myNavbar">
 
                     <ul class="nav navbar-nav navbar-right">
                         <p class="nav navbar-text" style="display: none;">Logged in as</p>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+
+                            <form id="register" class="navbar-form navbar-right" role="form" onsubmit="return false;">
+                                <button type="submit" class="btn btn-primary" value="register">Register</button>
+                            </form>
                             <form id="signin" class="navbar-form navbar-right" role="form" onsubmit="return false;">
 
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="username" type="text" class="form-control" name="email" value="" placeholder="Username" required="required"/>
+                                    <input id="username" type="text" class="form-control" name="email" value="" placeholder="Username"/>
                                 </div>
 
                                 <div class="input-group">
@@ -71,6 +51,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary" value="Submit">Login</button>
+
                             </form>
 
                         </div>
@@ -78,6 +59,8 @@
                 </div>
             </div>
         </nav>
+
+    <div class="container">
 
 
     {% block content %}
@@ -87,15 +70,45 @@
 
     {% endblock content %}
 
-        <div id="footer"></div>
-    </div>
 
+    </div>
+        <div id="footer"></div>
     <script>
             $("#footer").load("{% static 'src/pages/footer.html' %}");
+
+            $("#register").submit(function(){
+                console.log("registering");
+                window.location.href="{% url 'register' %}";
+            });
+            $('#signin').submit(function(){
+
+
+                /*var username = getCookie("username");
+                var getPassword = getCookie("password");
+                var enteredPassword = document.getElementById("password");
+                var enteredUsername = document.getElementById("username");
+
+                console.log("Cookie get name " + username + " " + enteredUsername.value + " end.");
+                if (username == enteredUsername.value) {
+
+                    if (getPassword != enteredPassword.value){
+                        alert("Passwords didn't match!");
+                        window.location.href="index.html";
+                    }else{
+                        window.location.href = "main.html";
+                    }
+
+                } else {
+                    alert("Usernames didn't match");
+                    window.location.href="index.html";
+                }*/
+            });
+
+        function register(){
+
+        }
     </script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')</script>
-    <script src="{% static 'src/js/plugins.js' %}"></script>
-    <script src="{% static 'src/js/main.js' %}"></script>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
