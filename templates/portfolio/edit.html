@@ -1,8 +1,11 @@
 {% extends "portfolio/base.html" %}
-
+{% load staticfiles %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/contactStyleSheet.css' %}">
+{% endblock %}
 
 {% block content %}
-
+<div class="centered">
 Portfolio Options
 <form action="{% url 'portfolio_update' this_user %}" method="post">{% csrf_token %}
     <label id="lblName">Portfolio Name: </label>
@@ -18,5 +21,5 @@ Portfolio Options
     <input type="submit" value="Submit Changes">
 
 </form>
-
+</div>
 {% endblock content %}
