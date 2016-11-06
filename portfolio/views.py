@@ -59,6 +59,9 @@ class RegisterView(View):
 
             return redirect('login')
         return render(request, 'portfolio/register.html', {'form': form})
+
+
+
 class ProfileView(View):
     def get(self, request, *args, **kwargs):
         return None
@@ -66,24 +69,26 @@ class ProfileView(View):
         return None
 
 
-class PortfolioUpdate(UpdateView):
+class PortfolioUpdate(View):
+
     #used to override the primary key as an identifier
     def get(self, request, *args, **kwargs):
-        model = Portfolio
-        fields = ['name']
-        form = PortfolioForm
 
-
+        form = PortfolioForm()
         user = get_object_or_404(User, username=request.user)
         userPortfolio = get_object_or_404(Portfolio, user=user.pk)
 
+        return render(request, 'portfolio/edit.html', {'form': form, 'this_portfolio': userPortfolio, 'this_user': user})
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('txtName')
+        header = request.POST.get('txtHeader')
+        style = request.POST.get('selectStyle')
 
 
-        return render(request, 'portfolio/edit.html', {'this_account': userPortfolio}, {'form': form})
-        #if user.is_active:
+        Portfolio.objects.update(name=name, header=header, style=style)
 
-        #else:
-         #   return HttpResponseRedirect(reverse('portfolio:login'))
+        return HttpResponseRedirect(reverse('profile'))
 
 class LoginView(View):
 

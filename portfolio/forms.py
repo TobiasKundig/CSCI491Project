@@ -10,5 +10,5 @@ class User_Registration(forms.Form):
 class PortfolioForm(forms.Form):
     name = forms.CharField(max_length=100)
     header = forms.CharField(widget=forms.Textarea)
-    style = forms.ChoiceField(choices=["Light","Dark"])
+    style = forms.ChoiceField(widget=forms.Select(), choices=[('1','Light'),('2','Dark')])
 

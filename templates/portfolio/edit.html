@@ -3,9 +3,20 @@
 
 {% block content %}
 
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update" />
+Portfolio Options
+<form action="{% url 'portfolio_update' this_user %}" method="post">{% csrf_token %}
+    <label id="lblName">Portfolio Name: </label>
+    <input name="txtName" type="text" value="{{ this_portfolio.name }}">
+    <label id="lblHeader">Portfolio Header: </label>
+    <textarea rows="4" cols="50" name="txtHeader">{{this_portfolio.header}}</textarea>
+    <label id="lblStyle">Portfolio Theme: </label>
+    <select name="selectStyle" >
+        <option value="Light">Light</option>
+        <option value="Dark">Dark</option>
+    </select>
+
+    <input type="submit" value="Submit Changes">
+
 </form>
 
-{% endblock %}
+{% endblock content %}
