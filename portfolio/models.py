@@ -5,7 +5,7 @@ from django.conf import settings
 class Portfolio(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    header = models.CharField(max_length=60)
+    header = models.CharField(max_length=150)
     style = models.CharField(max_length=30)
     stylesheet = models.CharField(max_length=100)
     frontpage = models.BooleanField(default=False)
