@@ -11,6 +11,7 @@ from django.contrib.auth import login, authenticate, logout
 
 from .forms import PortfolioForm
 from .models import Portfolio
+
 #forms
 from .forms import User_Registration
 
@@ -35,8 +36,10 @@ def detail(request, user):
 
     user = get_object_or_404(User,username=user)
     userPortfolio = get_object_or_404(Portfolio, user=user.pk)
+
+
     #passback the object. The template will ask for properties.
-    return render(request, 'portfolio/portfolio.html', {'this_account': userPortfolio})
+    return render(request, 'portfolio/portfolio.html', {'portfolio': userPortfolio})
 
 
 
@@ -81,12 +84,13 @@ class PortfolioUpdate(View):
         return render(request, 'portfolio/edit.html', {'form': form, 'this_portfolio': userPortfolio, 'this_user': user})
 
     def post(self, request, *args, **kwargs):
+        img = request.POST.get('profileIMG')
         name = request.POST.get('txtName')
         header = request.POST.get('txtHeader')
         style = request.POST.get('selectStyle')
 
 
-        Portfolio.objects.update(name=name, header=header, style=style)
+        Portfolio.objects.update(name=name, header=header, style=style, img=img)
 
         return HttpResponseRedirect(reverse('profile'))
 
