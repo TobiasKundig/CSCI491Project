@@ -81,9 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'portfolio_db',
         'USER': 'root',
-        'PASSWORD': 'bombastic',
+        'PASSWORD': 'bombadillo',
         'HOST': 'localhost',
-        'PORT': '5431',
+        'PORT': '3306',
     }
 }
 
@@ -126,3 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = '/portfolio/static/media/'
+
+MEDIA_URL = '/media/'

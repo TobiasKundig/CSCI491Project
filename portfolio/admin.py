@@ -8,8 +8,13 @@ from .models import *
 #what will be included on the administrative site.
 
 admin.site.register(Portfolio)
-admin.site.register(Photos)
+
+admin.site.register(ImageContent)
+
+admin.site.register(TextContent)
+
 admin.site.register(Blog)
+
 admin.site.register(Post)
 
 
