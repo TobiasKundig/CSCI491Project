@@ -9,10 +9,12 @@
 {% block content %}
 <div class="centered">
 Portfolio Options
-<form action="{% url 'portfolio_update' this_user %}" method="post">{% csrf_token %}
+<form action="{% url 'portfolio_update' this_user %}" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="image-landscape">
         <img id="profileIMG" src="{{ this_portfolio.img.url }} ">
+
     </div>
+    Change: <input name="inputImg" type="file" required>
     <label id="lblImage">Portfolio Image</label>
     <label id="lblName">Portfolio Name: </label>
     <input name="txtName" type="text" value="{{ this_portfolio.name }}">
