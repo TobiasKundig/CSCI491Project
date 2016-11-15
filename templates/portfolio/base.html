@@ -13,13 +13,18 @@
         {% endblock head_meta %}
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="{% static 'src/css/footerStylesheet.css' %}">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <title>MyWork | {% block title %}Home {% endblock title %}</title>
 
         {% block extra_head %}
-
+            
+            <link rel="stylesheet" type="text/css" href="{% static 'src/css/profileHeader.css' %}">
+        
+        
         {% endblock %}
 
     </head>
@@ -73,6 +78,18 @@
 
     </div>
         <div id="footer"></div>
+        
+        <footer>
+            <img id="footerLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}"><br>
+            
+            <a class="footerLinks" href="index.html">Home </a>
+            
+            <a class="footerLinks" href="portfolio.html">Portfolio</a>
+            
+            <a class="footerLinks" href="contact.html">Contact</a>
+            <p class="footer">&copy; 2016 &#124; website by Toby Kundig, Matt Dolan, & Chloe Russell</p>
+        </footer>
+        
     <script>
             $("#footer").load("{% static 'src/pages/footer.html' %}");
 
@@ -119,5 +136,7 @@
 
         ga('create','UA-XXXXX-X','auto');ga('send','pageview');
     </script>
+        
+        
     </body>
 </html>
