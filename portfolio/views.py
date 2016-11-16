@@ -123,7 +123,7 @@ def ImageContentUpdate(View):
 
 class LoginView(View):
 
-    template_name = ['portfolio/login.html', 'portfolio/portfolio.html']
+    template_name = ['portfolio/header.html', 'portfolio/portfolio.html']
 
     def get(self, request, *args, **kwargs):
 

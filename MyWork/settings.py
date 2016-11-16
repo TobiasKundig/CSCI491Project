@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'portfolio_db',
         'USER': 'root',
-        'PASSWORD': 'bombadillo',
+        'PASSWORD': 'bombastic',
         'HOST': 'localhost',
         'PORT': '3306',
     }

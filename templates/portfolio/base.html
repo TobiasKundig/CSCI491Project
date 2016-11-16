@@ -25,40 +25,10 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
+        <div id="navbar">
 
-                <div class="collapse navbar-collapse" id="myNavbar">
+        </div>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <p class="nav navbar-text" style="display: none;">Logged in as</p>
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-
-                            <form id="register" class="navbar-form navbar-right" role="form" onsubmit="return false;">
-                                <button type="submit" class="btn btn-primary" value="register">Register</button>
-                            </form>
-                            <form id="signin" class="navbar-form navbar-right" role="form" onsubmit="return false;">
-
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="username" type="text" class="form-control" name="email" value="" placeholder="Username"/>
-                                </div>
-
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="password" type="password" class="form-control" value="" placeholder="Password">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary" value="Submit">Login</button>
-
-                            </form>
-
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
     <div class="container">
 
@@ -75,7 +45,7 @@
         <div id="footer"></div>
     <script>
             $("#footer").load("{% static 'src/pages/footer.html' %}");
-
+            $("#navbar").load("{% static 'src/pages/header.html' %}");
             $("#register").submit(function(){
                 console.log("registering");
                 window.location.href="{% url 'register' %}";
