@@ -26,10 +26,10 @@
                 <p class="nav navbar-text" style="display: none;">Logged in as</p>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                    <form id="register" method="post" class="navbar-form navbar-right" role="form" onsubmit="return false;">
+                    <form id="register" method="post" class="navbar-form navbar-right" role="form" onsubmit="">
                         <button type="submit" class="btn btn-primary" value="register">Register</button>
                     </form>
-                    {% csrf_token %}
+
                     <form id="signin" class="navbar-form navbar-right" role="form" onsubmit="return false;">
 
                         <div class="input-group">
