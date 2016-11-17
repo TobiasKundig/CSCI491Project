@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^profile/$', views.profile, name='profile'), #the logged in users own profile
     url(r'^(?P<user>[\w\-]+)/$', views.detail, name='detail'),
-    url(r'^(?P<user>[\w\-]+)/images/$', ImageListView.as_view(), name='image_listing'), #the logged in users own profile
+    url(r'^(?P<user>[\w\-]+)/images/$', ImageManagementView.as_view(), name='image_listing'), #the logged in users own profile
     url(r'^(?P<user>[\w\-]+)/edit/$', PortfolioUpdate.as_view(), name='portfolio_update'),
 ]

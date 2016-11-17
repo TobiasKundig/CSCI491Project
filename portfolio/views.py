@@ -31,20 +31,16 @@ def index(request):
 def profile(request):
     #user object
     user = get_object_or_404(User, username=request.user)
-    userPortfolio = get_object_or_404(Portfolio, user = user.pk )
+    userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=user)
 
-    return render(request, 'portfolio/portfolio.html', {'this_account': userPortfolio})
+    return render(request, 'portfolio/portfolio.html', {'portfolio': userPortfolio})
 
 #present the details of a portfolio.
 def detail(request, user):
     #get user object based on username
     thisuser = get_object_or_404(User, username=user)
 
-
-    userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=thisuser)
-
-
-
+    userPortfolio = get_object_or_404(Portfolio, user=thisuser)
     #passback the object. The template will ask for properties.
     return render(request, 'portfolio/portfolio.html', {'portfolio': userPortfolio})
 
@@ -96,11 +92,11 @@ class PortfolioUpdate(View):
         header = request.POST.get('txtHeader')
         style = request.POST.get('selectStyle')
 
-        if request.FILES['inputImg']:
+        if len(request.FILES) != 0:
             img = request.FILES['inputImg']
-
-        Portfolio.objects.update(name=name, header=header, style=style, img=img)
-
+            Portfolio.objects.update(name=name, header=header, style=style, img=img)
+        else:
+            Portfolio.objects.update(name=name, header=header, style=style)
         return HttpResponseRedirect(reverse('profile'))
 
 def TextContentUpdate(View):
@@ -119,12 +115,13 @@ def TextContentUpdate(View):
 
 
 #gets images of a specific portfolio
-class ImageListView(ListView):
+class ImageManagementView(ListView):
     def get(self, request, user):
         user = get_object_or_404(User, username=user)
         userPortfolio = get_object_or_404(Portfolio, user=user.pk)
         images = ImageContent.objects.filter(portfolio=userPortfolio.id)
         return render(request, 'portfolio/images.html', {'images': images})
+
 
 
 
