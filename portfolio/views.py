@@ -15,6 +15,10 @@ from django.core.files.storage import FileSystemStorage
 #forms
 from .forms import User_Registration
 
+#pagination
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from django.views.generic import ListView
 
 #always pass in a request and return a response
 def index(request):
@@ -113,10 +117,42 @@ def TextContentUpdate(View):
     def post(self, request, *args, **kwargs):
         content = request.POST['text']
 
-def ImageContentUpdate(View):
+
+#gets images of a specific portfolio
+class ImageListView(ListView):
+    def get(self, request, user):
+        user = get_object_or_404(User, username=user)
+        userPortfolio = get_object_or_404(Portfolio, user=user.pk)
+        images = ImageContent.objects.filter(portfolio=userPortfolio.id)
+        return render(request, 'portfolio/images.html', {'images': images})
+
+
+
+def listing(request):
+    image_list = ImageContent.objects.all()
+    paginator = Paginator(image_list, 25)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        images = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        images = paginator.page(paginator.num_pages)
+
+    return render(request, 'portfolio/images.html', {'images': images})
+
+def ImageContentList(View):
 
     def get(self, request, *args, **kwargs):
-        content = get_object_or_404(ImageContent)
+
+        user = get_object_or_404(User, username=request.user)
+        userPortfolio = get_object_or_404(Portfolio, user=user.pk)
+        images = ImageContent.objects.get(portfolio=userPortfolio.id)
+
+
     def post(self, request, *args, **kwargs):
         content = request.POST['imgContent']
 
@@ -149,6 +185,8 @@ class LoginView(View):
 def LogoutView(request):
     logout(request)
     return HttpResponseRedirect(reverse('portfolio:index'))
+
+
 
 class CannotManage(Exception):
     pass

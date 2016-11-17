@@ -1,0 +1,46 @@
+{% extends "portfolio/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if images %}
+    <div class="photocontainer">
+    <div class="resize">
+    <table id="table_images">
+        {% for image in images %}
+            <tr>
+                <td>{{ image.title }}</td>
+                <td><img src="{{ image.image.url }}" style="
+            padding:10px;
+            width: 500px;
+        height: auto;"></td>
+                <td>{{ image.date }}</td>
+                <td>{{ image.description }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </div>
+    {# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/images?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/images?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% else %}
+    <h3>My Images</h3>
+    <p>No images are found. :(</p>
+{% endif %}
+
+{% endblock content %}
