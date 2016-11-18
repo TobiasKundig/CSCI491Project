@@ -1,0 +1,27 @@
+{% extends "portfolio/base.html" %}
+{% load staticfiles %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/contactStyleSheet.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'src/css/portfolio.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'src/css/profileHeader.css' %}">
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+     <script>
+
+$(document).ready(function() {
+    $('.datepicker').datepicker();
+        });
+  </script>
+ <h1>Create Project</h1>
+    <form method="POST" enctype="multipart/form-data" >{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+
+{% endblock content %}
