@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^(?P<user>[\w\-]+)/$', views.detail, name='detail'),
     url(r'^(?P<user>[\w\-]+)/images/$', ImageManagementView.as_view(), name='image_listing'), #the logged in users own profile
     url(r'^(?P<user>[\w\-]+)/edit/$', PortfolioUpdate.as_view(), name='portfolio_update'),
+    url(r'^(?P<user>[\w\-]+)/project/new/$', ProjectCreate.as_view(), name='project_create'),
 ]

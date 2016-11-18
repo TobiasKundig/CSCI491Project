@@ -33,7 +33,7 @@ def profile(request):
     user = get_object_or_404(User, username=request.user)
     userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=user)
 
-    return render(request, 'portfolio/portfolio.html', {'portfolio': userPortfolio})
+    return render(request, 'portfolio/portfolio/portfolio.html', {'portfolio': userPortfolio})
 
 #present the details of a portfolio.
 def detail(request, user):
@@ -42,14 +42,14 @@ def detail(request, user):
 
     userPortfolio = get_object_or_404(Portfolio, user=thisuser)
     #passback the object. The template will ask for properties.
-    return render(request, 'portfolio/portfolio.html', {'portfolio': userPortfolio})
+    return render(request, 'portfolio/portfolio/portfolio.html', {'portfolio': userPortfolio})
 
 
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
-        form = User_Registration()
-        return render(request, 'portfolio/register.html', {'form': form})
+
+        return render(request, 'portfolio/register.html')
 
     def post(self, request, *args, **kwargs):
 
@@ -57,14 +57,14 @@ class RegisterView(View):
         email = request.POST['email']
         password = request.POST['password']
 
-        form = User_Registration(request.POST)
 
-        if form.is_valid():
-            user = User.objects.create_user(username=username, email=email, password=password)
-            user.save()
 
-            return redirect('login')
-        return render(request, 'portfolio/register.html', {'form': form})
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+
+        return redirect('login')
+        return render(request, 'portfolio/register.html')
 
 
 
@@ -82,16 +82,16 @@ class PortfolioUpdate(View):
 
         user = get_object_or_404(User, username=request.user)
         userPortfolio = get_object_or_404(Portfolio, user=user.pk)
-        form = PortfolioEditForm(instance = userPortfolio)
+        form = PortfolioForm(instance = userPortfolio)
 
 
-        return render(request, 'portfolio/edit.html', {'form': form, 'this_portfolio': userPortfolio, 'this_user': user})
+        return render(request, 'portfolio/portfolio/edit.html', {'form': form, 'this_portfolio': userPortfolio, 'this_user': user})
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, username=request.user)
         portfolio = get_object_or_404(Portfolio, user=user.pk)
 
-        form = PortfolioEditForm(request.POST, request.FILES, instance=portfolio)
+        form = PortfolioForm(request.POST, request.FILES, instance=portfolio)
         if form.is_valid():
             portfolio = form.save(commit=False)
 
@@ -99,8 +99,18 @@ class PortfolioUpdate(View):
 
             return HttpResponseRedirect(reverse('profile'))
 
+class ProjectCreate(View):
+    def get(self, request, *args, **kwargs):
+        form = ProjectForm()
 
+        return render(request, 'portfolio/project/create.html', {'form': form})
+    def post(self, request, *args, **kwargs):
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
 
+            project.save()
+            return HttpResponseRedirect(reverse('profile'))
 
 def TextContentUpdate(View):
 
