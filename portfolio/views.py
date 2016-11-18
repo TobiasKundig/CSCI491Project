@@ -26,7 +26,9 @@ def index(request):
      return render(request, 'portfolio/index.html')
    # return render(request,'portfolio/index.html')
 
-
+def contact(request):
+    return render(request, 'portfolio/contact.html')
+    
 # profile and detail are different ways to access a portfolio. It depends on context.
 def profile(request):
     #user object
