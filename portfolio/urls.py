@@ -7,6 +7,7 @@ from .views import RegisterView
 from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^contact/',  views.contact, name='contact'),
     url(r'^register/$', RegisterView.as_view(), name='register'), #registration page
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', views.logout, name='logout'),

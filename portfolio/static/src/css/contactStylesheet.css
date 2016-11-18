@@ -1,7 +1,37 @@
+#contactLogo{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    align-content: center;
+}
+
+h1{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    font-size: 60px;
+}
+
+#contactText{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    width: 25%;
+}
+
 label{
     display: block;
     margin-top: 20px;
     letter-spacing: 2px;
+}
+
+.contactHeader{
+    background-color: #6D6E71;
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 /*Center the page*/
@@ -9,6 +39,16 @@ label{
     display: block;
     margin: 0 auto;
     width: 576px;
+}
+
+#contactInfo{
+    width: 25%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-variant-caps: all-petite-caps;
+    font-size: 20px;
 }
 
 /*Center the form within the page*/
