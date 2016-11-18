@@ -7,27 +7,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="centered">
-Portfolio Options
-<form action="{% url 'portfolio_update' this_user %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <div class="image-landscape">
-        <img id="profileIMG" src="{{ this_portfolio.img.url }} ">
+ <h1>Edit Portfolio</h1>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'portfolio_update' this_user %}">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
 
-    </div>
-    Change: <input name="inputImg" type="file" >
-    <label id="lblImage">Portfolio Image</label>
-    <label id="lblName">Portfolio Name: </label>
-    <input name="txtName" type="text" value="{{ this_portfolio.name }}">
-    <label id="lblHeader">Portfolio Header: </label>
-    <textarea rows="4" cols="50" name="txtHeader">{{this_portfolio.header}}</textarea>
-    <label id="lblStyle">Portfolio Theme: </label>
-    <select name="selectStyle" >
-        <option value="Light">Light</option>
-        <option value="Dark">Dark</option>
-    </select>
 
-    <input type="submit" value="Submit Changes">
-
-</form>
-</div>
 {% endblock content %}

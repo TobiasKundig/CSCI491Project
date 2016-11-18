@@ -13,7 +13,7 @@ from .forms import PortfolioForm
 from .models import *
 from django.core.files.storage import FileSystemStorage
 #forms
-from .forms import User_Registration
+from .forms import *
 
 #pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -80,24 +80,27 @@ class PortfolioUpdate(View):
     #used to override the primary key as an identifier
     def get(self, request, *args, **kwargs):
 
-        form = PortfolioForm()
         user = get_object_or_404(User, username=request.user)
         userPortfolio = get_object_or_404(Portfolio, user=user.pk)
+        form = PortfolioEditForm(instance = userPortfolio)
+
 
         return render(request, 'portfolio/edit.html', {'form': form, 'this_portfolio': userPortfolio, 'this_user': user})
 
     def post(self, request, *args, **kwargs):
+        user = get_object_or_404(User, username=request.user)
+        portfolio = get_object_or_404(Portfolio, user=user.pk)
 
-        name = request.POST.get('txtName')
-        header = request.POST.get('txtHeader')
-        style = request.POST.get('selectStyle')
+        form = PortfolioEditForm(request.POST, request.FILES, instance=portfolio)
+        if form.is_valid():
+            portfolio = form.save(commit=False)
 
-        if len(request.FILES) != 0:
-            img = request.FILES['inputImg']
-            Portfolio.objects.update(name=name, header=header, style=style, img=img)
-        else:
-            Portfolio.objects.update(name=name, header=header, style=style)
-        return HttpResponseRedirect(reverse('profile'))
+            portfolio.save()
+
+            return HttpResponseRedirect(reverse('profile'))
+
+
+
 
 def TextContentUpdate(View):
 
