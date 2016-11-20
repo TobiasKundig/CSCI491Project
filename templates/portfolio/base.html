@@ -37,15 +37,23 @@
 
             <div class="container-fluid">
 
-                <img class="topLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">
 
                 <div class="collapse navbar-collapse" id="myNavbar">
 
+                    <img class="topLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">
                     <ul class="nav navbar-nav navbar-right">
-                        <p class="nav navbar-text" style="display: none;">Logged in as</p>
+
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            {% if user.is_authenticated %}
+                            <p class="nav navbar-text" >Logged in as</p> {{ request.user.first_name }}
 
+                            <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'login' %}">
 
+                                {% csrf_token %}
+                                <button type="submit" id="logoutButton" class="btn btn-default" value="Submit">Logout</button>
+
+                            </form>
+                            {% else %}
                             <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'register' %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-primary" value="register">Register</button>
@@ -70,7 +78,7 @@
 
 
                             </form>
-
+                            {% endif %}
                         </div>
                     </ul>
                 </div>
