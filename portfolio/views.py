@@ -28,7 +28,7 @@ def index(request):
 
 def contact(request):
     return render(request, 'portfolio/contact.html')
-    
+
 # profile and detail are different ways to access a portfolio. It depends on context.
 def profile(request):
     #user object
@@ -176,7 +176,6 @@ class LoginView(View):
     def get(self, request, *args, **kwargs):
 
         if request.user.is_authenticated():
-
             return redirect('profile')
         return render(request, self.template_name[0])
 
@@ -196,7 +195,7 @@ class LoginView(View):
 
 def LogoutView(request):
     logout(request)
-    return HttpResponseRedirect(reverse('portfolio:index'))
+    return HttpResponseRedirect(reverse('index'))
 
 
 
