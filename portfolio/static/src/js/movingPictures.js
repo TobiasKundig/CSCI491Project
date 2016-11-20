@@ -11,8 +11,8 @@
 // get canvas element.
     /*var elem = document.getElementById('myCanvas');
     elem.style.height = '100%';
-    elem.style.width = '100%';*/
-    var context = ctx;
+    elem.style.width = '100%';
+    var context = ctx;*/
 
 //The initialization method that... initializes
     init();
