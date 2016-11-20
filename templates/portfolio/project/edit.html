@@ -1,0 +1,17 @@
+{% extends "portfolio/base.html" %}
+{% load staticfiles %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'src/css/contactStyleSheet.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'src/css/portfolio.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'src/css/profileHeader.css' %}">
+{% endblock %}
+
+{% block content %}
+ <h1>Edit Portfolio</h1>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'project_edit' this_user %}">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+
+{% endblock content %}
