@@ -17,19 +17,6 @@
 
 </div>
 
-    <script>
-        // Set up the worker
-        var running = false;
-        var worker = new Worker("{% static 'src/js/movingPictures.js'%}"); // path is relative to the main HTML file
-        worker.addEventListener('message', function (event) {
-
-            if (event.data === "Done!") {
-                running = false;
-                console.log("Worker Done");
-            }
-        });
-        worker.postMessage()
-    </script>
      <script type="text/javascript">
 
         //Instance variables
