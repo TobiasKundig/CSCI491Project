@@ -10,8 +10,10 @@ class Portfolio(models.Model):
     img = models.ImageField(default=None,verbose_name='main', upload_to='Portfolio/%Y/%m/%d')
 
     def user_can_manage_me(self, thisuser):
+        print("self",self.user)
+        print("this user:",thisuser)
 
-        return thisuser == self.user or thisuser.has_perm('Portfolio.manage_object')
+        return thisuser == self.user
 
     @classmethod
     def get_manageable_object_or_404(cls, thisuser, *args, **kwds):
@@ -29,7 +31,7 @@ class Project(models.Model):
 
     def user_can_manage_me(self, thisuser):
 
-        return thisuser == self.user or thisuser.has_perm('Portfolio.manage_object')
+        return thisuser == self.user
 
     @classmethod
     def get_manageable_object_or_404(cls, thisuser, *args, **kwds):
@@ -48,7 +50,7 @@ class ImageContent(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
 
     def user_can_manage_me(self, thisuser):
-        return thisuser == self.user or thisuser.has_perm('Portfolio.manage_object')
+        return thisuser == self.user
 
     @classmethod
     def get_manageable_object_or_404(cls, thisuser, *args, **kwds):
@@ -66,7 +68,7 @@ class TextContent(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
 
     def user_can_manage_me(self, thisuser):
-        return thisuser == self.user or thisuser.has_perm('Portfolio.manage_object')
+        return thisuser == self.user
 
     @classmethod
     def get_manageable_object_or_404(cls, thisuser, *args, **kwds):
@@ -81,7 +83,7 @@ class Blog(models.Model):
     portfolio = models.ForeignKey('Portfolio', on_delete=models.CASCADE)
 
     def user_can_manage_me(self, thisuser):
-        return thisuser == self.user or thisuser.has_perm('Portfolio.manage_object')
+        return thisuser == self.user
 
     @classmethod
     def get_manageable_object_or_404(cls, thisuser, *args, **kwds):
@@ -97,7 +99,7 @@ class Post(models.Model):
     blog = models.ForeignKey('Blog', on_delete=models.CASCADE)
 
     def user_can_manage_me(self, thisuser):
-        return thisuser == self.user or thisuser.has_perm('Portfolio.manage_object')
+        return thisuser == self.user
 
     @classmethod
     def get_manageable_object_or_404(cls, thisuser, *args, **kwds):

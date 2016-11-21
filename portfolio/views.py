@@ -80,10 +80,12 @@ class ProfileView(View):
 class PortfolioUpdate(View):
 
     #used to override the primary key as an identifier
-    def get(self, request, *args, **kwargs):
+    def get(self, request, user, *args, **kwargs):
 
-        user = get_object_or_404(User, username=request.user)
-        userPortfolio = get_object_or_404(Portfolio, user=user.pk)
+        user = get_object_or_404(User, username=user)
+
+        userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=user)
+
         form = PortfolioForm(instance = userPortfolio)
 
 
