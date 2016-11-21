@@ -12,10 +12,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock head_meta %}
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
         <link rel="stylesheet" href="{% static 'src/css/footerStylesheet.css' %}">
-        
+
         <link rel="stylesheet" href="{% static 'src/css/navStylesheet.css' %}">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -23,56 +23,68 @@
         <title>MyWork | {% block title %}Home {% endblock title %}</title>
 
         {% block extra_head %}
-            
+
             <link rel="stylesheet" type="text/css" href="{% static 'src/css/profileHeader.css' %}">
-        
-        
+
+
         {% endblock %}
 
     </head>
 
     <body>
-        <nav class="navbar-grey">
+
+        <nav class="navbar-grey navbar navbar-fixed-top">
+
             <div class="container-fluid">
-                
-                <img class="topLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">
+
 
                 <div class="collapse navbar-collapse" id="myNavbar">
 
+                    <img class="topLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">
                     <ul class="nav navbar-nav navbar-right">
-                        <p class="nav navbar-text" style="display: none;">Logged in as</p>
+
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            {% if user.is_authenticated %}
 
+                            <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'logout' %}">
+                                <p class="nav navbar-text" >Logged in as {{ request.user.first_name }}
 
-                            <form id="register" class="navbar-form navbar-right" role="form" onsubmit="return false;">
-                                <button type="submit" class="btn btn-default" value="register">Register</button>
+                                {% csrf_token %}
+                                <button type="submit" id="logoutButton" class="btn btn-default" value="Submit" >Logout</button>
+                                </p>
                             </form>
-                            <form id="signin" class="navbar-form navbar-right" role="form" onsubmit="return false;">
+                            {% else %}
+                            <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'register' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary" value="register">Register</button>
+
+                            </form>
+
+                            <form id="signin" class="navbar-form navbar-right" role="form" method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
 
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="username" type="text" class="form-control" name="email" value="" placeholder="Username"/>
+                                    <input id="username" type="text" class="form-control" name="username" placeholder="Username"/>
                                 </div>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="password" type="password" class="form-control" value="" placeholder="Password">
+                                    <input id="password" type="password" name="password" class="form-control" placeholder="Password">
                                 </div>
+
 
                                 <button type="submit" id="loginButton" class="btn btn-default" value="Submit">Login</button>
 
-                            </form>
 
+                            </form>
+                            {% endif %}
                         </div>
                     </ul>
                 </div>
             </div>
-      
+
         </nav>
-         
-
-
-
 
     {% block content %}
 
@@ -82,54 +94,25 @@
     {% endblock content %}
 
 
- 
+
         <div id="footer"></div>
-        
+
         <footer>
             <img id="footerLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}"><br>
-            
+
             <a class="footerLinks" href="index.html">Home </a>
-            
+
             <a class="footerLinks" href="portfolio.html">Portfolio</a>
-            
+
             <a class="footerLinks" href="contact.html">Contact</a>
             <p class="footer">&copy; 2016 &#124; website by Toby Kundig, Matt Dolan, & Chloe Russell</p>
         </footer>
-        
+
     <script>
-            
-
-            $("#register").submit(function(){
-                console.log("registering");
-                window.location.href="{% url 'register' %}";
-            });
-            $('#signin').submit(function(){
 
 
-                /*var username = getCookie("username");
-                var getPassword = getCookie("password");
-                var enteredPassword = document.getElementById("password");
-                var enteredUsername = document.getElementById("username");
 
-                console.log("Cookie get name " + username + " " + enteredUsername.value + " end.");
-                if (username == enteredUsername.value) {
 
-                    if (getPassword != enteredPassword.value){
-                        alert("Passwords didn't match!");
-                        window.location.href="index.html";
-                    }else{
-                        window.location.href = "main.html";
-                    }
-
-                } else {
-                    alert("Usernames didn't match");
-                    window.location.href="index.html";
-                }*/
-            });
-
-        function register(){
-
-        }
     </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -142,7 +125,7 @@
 
         ga('create','UA-XXXXX-X','auto');ga('send','pageview');
     </script>
-        
-        
+
+
     </body>
 </html>
