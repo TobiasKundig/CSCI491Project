@@ -63,7 +63,6 @@ class URLTestCase(TestCase):
     def test_profile_name(self):
 
 
-
         file = BytesIO()
         image = Image.new('RGBA', size=(50, 50), color=(150, 0, 0))
         image.save(file, 'png')
@@ -79,6 +78,9 @@ class URLTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_profile_edit(self):
+        request = self.factory.get('/testuser1/edit/')
+        request.user = self.user
+        update = PortfolioUpdate()
 
 
 
@@ -91,11 +93,7 @@ class URLTestCase(TestCase):
 
         Portfolio.objects.create(user=self.user, name="This is a test portfolio name", header="testheader",
                                  style="dark", img=img)
-
-
-
-        resp = self.client.get('/testuser1/edit/')
-
+        resp = update.get(request=request, user=self.user)
         self.assertEqual(resp.status_code, 200)
     '''def test_profile_images(self):
         resp = self.client.get('/register/')
