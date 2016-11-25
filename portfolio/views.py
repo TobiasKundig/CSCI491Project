@@ -49,18 +49,21 @@ def detail(request, user):
 
 
 class RegisterView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'portfolio/register.html')
 
-    def post(self, request, *args, **kwargs):
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+  template_name = ['portfolio/register.html', 'portfolio/portfolio.html']
 
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.save()
+  def get(self, request, *args, **kwargs):
+    return render(request, 'portfolio/register.html')
 
-        return HttpResponseRedirect(reverse('index'))
+  def post(self, request, *args, **kwargs):
+    username = request.POST['username']
+    email = request.POST['email']
+    password = request.POST['password']
+
+    user = User.objects.create_user(username=username, email=email, password=password)
+    user.save()
+
+    return HttpResponseRedirect(reverse('profile'))
 
 
 

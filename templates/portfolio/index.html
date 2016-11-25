@@ -155,10 +155,10 @@
             requestAnimationFrame(moveStuff);
 
             context.clearRect(0,0, elem.width, elem.height);
-            context.shadowColor = '#999';
-            context.shadowBlur = 20;
-            context.shadowOffsetX = 15;
-            context.shadowOffsetY = 15;
+            //context.shadowColor = '#999';
+            //context.shadowBlur = 20;
+            //context.shadowOffsetX = 15;
+            //context.shadowOffsetY = 15;
             for(var i = 0; i < imageArray.length; i++){
                 var obj = imageArray[i];
 
@@ -173,12 +173,12 @@
                 //It's NOT the object to be faded
                 else{
                     context.save();
-                    roundedImage(obj.x, obj.y, 200, 200, 20);
-                    context.clip();
-                    context.shadowColor = '#999';
-                    context.shadowBlur = 20;
-                    context.shadowOffsetX = 15;
-                    context.shadowOffsetY = 15;
+                    //roundedImage(obj.x, obj.y, 200, 200, 20);
+                    //context.clip();
+                    //context.shadowColor = '#999';
+                    //context.shadowBlur = 20;
+                    //context.shadowOffsetX = 15;
+                    //context.shadowOffsetY = 15;
                     context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
                     context.restore();
 
@@ -190,8 +190,8 @@
 
             context.save();
             context.globalAlpha = fadePercentage/100;
-            roundedImage(obj.x, obj.y, 200, 200, 20);
-            context.clip();
+            //roundedImage(obj.x, obj.y, 200, 200, 20);
+            //context.clip();
             context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
             context.restore();
 
