@@ -54,13 +54,13 @@
                                 </p>
                             </form>
                             {% else %}
-                            <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'register' %}">
+                            <form id="register" class="navbar-form navbar-right" role="form" action="{% url 'register' %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-primary" value="register">Register</button>
 
                             </form>
 
-                            <form id="signin" class="navbar-form navbar-right" role="form" method="post" action="{% url 'login' %}">
+                            <form id="signin" class="navbar-form navbar-right" role="form" method="post" >
                             {% csrf_token %}
 
                                 <div class="input-group">

@@ -50,23 +50,17 @@ def detail(request, user):
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
-
         return render(request, 'portfolio/register.html')
 
     def post(self, request, *args, **kwargs):
-
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
 
-
-
-
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
 
-        return redirect('login')
-        return render(request, 'portfolio/register.html')
+        return HttpResponseRedirect(reverse('index'))
 
 
 
