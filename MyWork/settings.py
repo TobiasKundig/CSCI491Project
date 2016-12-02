@@ -75,13 +75,12 @@ WSGI_APPLICATION = 'MyWork.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'portfolio_db',
         'USER': 'root',
-        'PASSWORD': 'bombastic',
+        'PASSWORD': 'bombadillo',
         'HOST': 'localhost',
         'PORT': '3306',
     }

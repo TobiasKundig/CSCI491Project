@@ -100,11 +100,11 @@
         <footer>
             <img id="footerLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}"><br>
 
-            <a class="footerLinks" href="index.html">Home </a>
+            <a class="footerLinks" href={% url 'index' %}   >Home </a>
 
-            <a class="footerLinks" href="portfolio.html">Portfolio</a>
+            <a class="footerLinks" href={% url 'profile' %}>Portfolio</a>
 
-            <a class="footerLinks" href="contact.html">Contact</a>
+            <a class="footerLinks" href="{% url 'contact' %}">Contact</a>
             <p class="footer">&copy; 2016 &#124; website by Toby Kundig, Matt Dolan, & Chloe Russell</p>
         </footer>
 
