@@ -12,13 +12,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock head_meta %}
 
+
+        <script src="{% static 'src/js/jquery-1.11.3.js' %}"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script><!--dropdown addon-->
 
         <link rel="stylesheet" href="{% static 'src/css/footerStylesheet.css' %}">
 
         <link rel="stylesheet" href="{% static 'src/css/navStylesheet.css' %}">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <title>MyWork | {% block title %}Home {% endblock title %}</title>
 
@@ -29,29 +31,93 @@
 
         {% endblock %}
 
+        <style>
+            strong {
+                font-size: 20px;
+            }
+
+            .dropdown {
+                padding : 20px;
+            }
+        </style>
+
     </head>
+
 
     <body>
 
-        <nav class="navbar-grey navbar navbar-fixed-top">
+        <nav class="navbar-grey navbar navbar-fixed-top" role="navigation">
 
-            <div class="container-fluid">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
+                        <img style="max-width:100px; margin-top: -7px;"
+                             src="{% static 'src/img/FinalLogoBlackFilled.png' %}">
+                    </a>
+                </div>
 
 
-                <div class="collapse navbar-collapse" id="myNavbar">
-
-                    <img class="topLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">
+                    <!--<img class="navbar-brand" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">-->
                     <ul class="nav navbar-nav navbar-right">
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
                             {% if user.is_authenticated %}
 
                             <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'logout' %}">
-                                <p class="nav navbar-text" >Logged in as {{ request.user.first_name }}
+
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <strong>{{ request.user.first_name }}</strong>
+                                            <span class="glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+                                            <ul class="dropdown-menu" style="width: 300px; padding: 15px;">
+                                                <li>
+                                                    <div class="navbar-login">
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <p class="text-center">
+                                                                    <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
+                                                                        <img style="max-width:100px; margin-top: -7px;"
+                                                                             src="{% static 'src/img/FinalLogoBlackFilled.png' %}">
+                                                                    </a>
+                                                                    <!--<span class="glyphicon glyphicon-user icon-size"></span>-->
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <p class="text-left"><strong>{{ request.user.first_name }}</strong></p>
+                                                                <p class="text-left small">{{ request.user.email }}</p>
+                                                                <p class="text-left">
+                                                                    <a href="#" class="btn btn-primary btn-block btn-sm">Profile</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="divider navbar-login-session-bg"></li>
+                                                <li><a href="#">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">User stats <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Favourites Snippets <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                            </ul>
+                                    </li>
+                                <!-- <p class="nav navbar-text" >Logged in as {{ request.user.first_name }}
 
                                 {% csrf_token %}
                                 <button type="submit" id="logoutButton" class="btn btn-default" value="Submit" >Logout</button>
-                                </p>
+                                </p>-->
+                                </div>
                             </form>
                             {% else %}
                             <form id="register" class="navbar-form navbar-right" role="form" action="{% url 'register' %}">
@@ -81,7 +147,7 @@
                             {% endif %}
                         </div>
                     </ul>
-                </div>
+
             </div>
 
         </nav>
@@ -110,7 +176,9 @@
 
     <script>
 
-
+        $(document).ready(function() {
+            $(".dropdown-toggle").dropdown();
+        });
 
 
     </script>
