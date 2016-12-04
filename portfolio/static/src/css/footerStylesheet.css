@@ -1,41 +1,14 @@
-footer{
-    margin-top: 50px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    background-color: #6D6E71;
-    color: white;
-    text-align: center;
-    clear: left;
-}
 
-.footerLinks{
-    padding-top: 75px;
-    padding-bottom: 75px;
-    padding-left: 20px;
-    padding-right: 20px;
-    
-}
 
-a{
-    text-decoration: none;
-    padding-top: 25px;
-    padding-bottom: 25px;
-}
-
-p{
-    padding-top: 25px;
-    
-}
-
-/*Logo style*/
+/*Logo style
 #footerLogo{
     margin-left: auto;
     margin-right: auto;
     width: 20%;
     height: 20%;
     padding: 25px;
-    
-}
+
+}*/
 
 /*Unvisited Link*/
 a:link{
