@@ -5,7 +5,7 @@
     align-content: center;
 }
 
-h1{
+#contactHeader{
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -21,7 +21,7 @@ h1{
     width: 25%;
 }
 
-label{
+.contactLabel{
     display: block;
     margin-top: 20px;
     letter-spacing: 2px;
@@ -52,7 +52,7 @@ label{
 }
 
 /*Center the form within the page*/
-form{
+.contactForm{
     margin: 0 auto;
     width: 459px;
 }
@@ -73,3 +73,5 @@ textarea{
     height: 213px;
     background-color: lightgray;
 }
+
+

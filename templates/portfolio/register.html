@@ -6,39 +6,40 @@
 {% endif %}
 
 
-<div class="container">
+<div class="container" style="padding-top: 15%;">
     <div class="jumbotron">
-        <form class="form-horizontal" role="form" action="{% url 'register' %}">
+        <form method="POST" class="form-horizontal">
+            {% csrf_token %}
             <h2 style="margin-left: 5em; margin-bottom: 1em;">Registration Form</h2>
             <div class="form-group">
                 <label for="firstName" class="col-sm-3 control-label">Full Name</label>
                 <div class="col-sm-5">
-                    <input type="text" id="firstName" placeholder="Full Name" class="form-control" value="{{ full_Name }}" autofocus>
+                    <input type="text" id="firstName" placeholder="Full Name" class="form-control"  autofocus>
                     <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-5">
-                    <input type="text" id="username" placeholder="Username" class="form-control" value="{{ username }}">
+                    <input id="username" name="username" placeholder="Username" class="form-control" >
                 </div>
             </div>
             <div class="form-group">
                 <label for="email" class="col-sm-3 control-label">Email</label>
                 <div class="col-sm-5">
-                    <input type="email" id="email" placeholder="Email" class="form-control" value="{{ email }}">
+                    <input type="email" name="email" id="email" placeholder="Email" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label for="password" class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-5">
-                    <input type="password" id="password" placeholder="Password" class="form-control" value="{{ password }}">
+                    <input type="password" name="password" id="password" placeholder="Password" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label for="birthDate" class="col-sm-3 control-label" >Date of Birth</label>
                 <div class="col-sm-5">
-                    <input type="date" id="birthDate" class="form-control" value="{{ date_of_birth }}">
+                    <input type="date" id="birthDate" class="form-control" >
                 </div>
             </div>
             <div class="form-group">
@@ -62,17 +63,17 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <label class="radio-inline">
-                                <input type="radio" id="femaleRadio" value="{{ female }}">Female
+                                <input type="radio" id="femaleRadio">Female
                             </label>
                         </div>
                         <div class="col-sm-4">
                             <label class="radio-inline">
-                                <input type="radio" id="maleRadio" value="{{ male }}">Male
+                                <input type="radio" id="maleRadio">Male
                             </label>
                         </div>
                         <div class="col-sm-4">
                             <label class="radio-inline">
-                                <input type="radio" id="uncknownRadio" value="{{ unknown }}">Unknown
+                                <input type="radio" id="uncknownRadio">Unknown
                             </label>
                         </div>
                     </div>
@@ -111,8 +112,6 @@
     </div>
 
 </div> <!-- ./container -->
-<script>
-    document.getElementById('myNavbar').style.display = 'none';
-</script>
+
  {% endblock content %}
 

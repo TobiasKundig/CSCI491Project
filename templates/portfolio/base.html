@@ -12,13 +12,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock head_meta %}
 
+
+        <script src="{% static 'src/js/jquery-1.11.3.js' %}"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script><!--dropdown addon-->
 
         <link rel="stylesheet" href="{% static 'src/css/footerStylesheet.css' %}">
 
         <link rel="stylesheet" href="{% static 'src/css/navStylesheet.css' %}">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
         <title>MyWork | {% block title %}Home {% endblock title %}</title>
 
@@ -29,63 +31,109 @@
 
         {% endblock %}
 
+        <style>
+            strong {
+                font-size: 20px;
+            }
+
+            .dropdown {
+                padding : 20px;
+            }
+
+            .icon-size
+            {
+                font-size: 87px;
+            }
+        </style>
+
     </head>
 
     <body>
-
-        <nav class="navbar-grey navbar navbar-fixed-top">
-
+        <nav class="navbar-grey navbar navbar-fixed-top" role="navigation">
             <div class="container-fluid">
+                <div class="navbar-header">
+
+                    <a class="navbar-brand" rel="home" href="#" title="portfolio">
+                        <img style="max-width:110px; margin-top: 5px;margin-left: 40px;"
+                             src="{% static 'src/img/FinalLogoBlackFilled.png' %}">
+                    </a>
+                </div>
 
 
-                <div class="collapse navbar-collapse" id="myNavbar">
-
-                    <img class="topLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <!--<img class="navbar-brand" src="{% static 'src/img/FinalLogoWhiteClear.png' %}">-->
                     <ul class="nav navbar-nav navbar-right">
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            {% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
 
-                            <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'logout' %}">
-                                <p class="nav navbar-text" >Logged in as {{ request.user.first_name }}
+                        <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'logout' %}">
 
-                                {% csrf_token %}
-                                <button type="submit" id="logoutButton" class="btn btn-default" value="Submit" >Logout</button>
-                                </p>
-                            </form>
-                            {% else %}
-                            <form id="register" method="post" class="navbar-form navbar-right" role="form" action="{% url 'register' %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary" value="register">Register</button>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 20px;">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <strong>{{ request.user.first_name }}</strong>
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="width: 200%;padding: 20px;background-color: #111;opacity: 0.8;">
+                                    <li>
+                                        <div class="navbar-login">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <p class="text-center">
+                                                        <img style="width: 100px;height: 100px;border-radius: 50%;" src="{{ portfolio.img.url }}">
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <p class="text-left"><strong style="color: #818181;">{{ request.user.first_name }}</strong></p>
+                                                    <p class="text-left small"><strong style="color: #818181;">{{ request.user.email }}</strong></p>
+                                                    <p class="text-left">
+                                                        <a href="{% url 'profile' %}" class="btn btn-primary btn-block btn-sm">Profile</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider navbar-login-session-bg"></li>
+                                    <li><a href="#" style="color: #818181;">Account Settings<span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" style="color: #818181;">Messages<span class="badge pull-right">42</span></a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" style="color: #818181;">Favorite Profiles <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{% url 'logout' %}" style="color: #818181;">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                </ul>
+                            </li>
+                            <!-- <p class="nav navbar-text" >Logged in as {{ request.user.first_name }}
 
-                            </form>
-
-                            <form id="signin" class="navbar-form navbar-right" role="form" method="post" action="{% url 'login' %}">
                             {% csrf_token %}
-
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="username" type="text" class="form-control" name="username" placeholder="Username"/>
-                                </div>
-
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="password" type="password" name="password" class="form-control" placeholder="Password">
-                                </div>
-
-
-                                <button type="submit" id="loginButton" class="btn btn-default" value="Submit">Login</button>
-
-
-                            </form>
-                            {% endif %}
-                        </div>
+                            <button type="submit" id="logoutButton" class="btn btn-default" value="Submit" >Logout</button>
+                            </p>-->
+                        </form>
                     </ul>
                 </div>
+                        {% else %}
+
+                <form id="register" class="navbar-form navbar-right" style="display: inline-block;padding: 20px;" role="form" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" value="register">Register</button>
+                </form>
+                <form id="signin" style="display: inline-block;padding: 20px;" class="navbar-form navbar-right" role="form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="input-group col-xs-3 col-xs-offset-4">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="username" type="text" class="form-control" name="username" placeholder="Username"/>
+                    </div>
+
+                    <div class="input-group col-xs-3">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="password" type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+                    <button type="submit" id="loginButton" class="btn btn-default" value="Submit">Login</button>
+                </form>
+                {% endif %}
             </div>
-
         </nav>
-
+        <div style="margin-top:100px;"></div>
     {% block content %}
 
 
@@ -94,23 +142,33 @@
     {% endblock content %}
 
 
+        <footer style="padding-top: 15%;">
+            <div >
 
-        <div id="footer"></div>
+                <a class="navbar-brand" style="display: block;padding-left: 44%" href="#" title="portfolio">
+                    <img style="max-width:150px; margin-top: -95px;" src="{% static 'src/img/FinalLogoBlackFilled.png' %}">
+                </a>
+            </div>
 
-        <footer>
-            <img id="footerLogo" src="{% static 'src/img/FinalLogoWhiteClear.png' %}"><br>
 
-            <a class="footerLinks" href="index.html">Home </a>
+            <p class="footer">
+                <a class="footerLinks" href="{% url 'index' %}">Home </a>
 
-            <a class="footerLinks" href="portfolio.html">Portfolio</a>
+                <a class="footerLinks" href="{% url 'profile' %}">Portfolio</a>
 
-            <a class="footerLinks" href="contact.html">Contact</a>
-            <p class="footer">&copy; 2016 &#124; website by Toby Kundig, Matt Dolan, & Chloe Russell</p>
+                <a class="footerLinks" href="{% url 'contact' %}">Contact</a>
+                <br>
+                <br>
+
+                &copy; 2016 &#124; website by Toby Kundig, Matt Dolan, & Chloe Russell
+            </p>
         </footer>
 
     <script>
 
-
+        $(document).ready(function() {
+            $(".dropdown-toggle").dropdown();
+        });
 
 
     </script>

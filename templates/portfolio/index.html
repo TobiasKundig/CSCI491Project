@@ -1,20 +1,49 @@
 {% extends "portfolio/base.html" %}
 {% load staticfiles %}
-<!doctype html>
-<html>
-    <head>
 
+    {% block extra_head %}
+    <style>
+        #bottomTable {
+            padding: 20px;
+            table-layout: fixed;
+        }
+        .bottomTH{
+            padding: 10px;
+            width: 25%;
+        }
+        .bottomh4{
+            font-weight: bold;
+        }
+        .bottomTR td{
 
-    </head>
-    <body>
+        }
+    </style>
+
+    {% endblock %}
+
     {% block content %}
 
-<div class="container">
+<div class="container" style="padding-top: 120px;">
     <div class="jumbotron" id="jumbotron">
 
         <canvas id="myCanvas" width="1000" height="600"></canvas>
     </div>
 
+    <div class="jumbotron">
+
+        <table id="bottomTable" style="">
+            <tr>
+                <th class="bottomTH"><h4 class="bottomh4">What Is It</h4></th>
+                <th class="bottomTH"><h4 class="bottomh4">What Kind of Work</h4></th>
+                <th class="bottomTH"><h4 class="bottomh4">Who Looks At It</h4></th>
+            </tr>
+            <tr class="bottomTR">
+                <td style="border-right: 1px solid black;padding: 10px;">Professionals wanting to get the most exposure from their work post it here.</td>
+                <td style="border-right: 1px solid black;padding: 10px;">All your work! If you have a digital record of how you did what you did, you can put it here!</td>
+                <td style="padding: 10px;">Employers looking for creative minds come here. They want the behind-the-scenes work that made your project great.</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
      <script type="text/javascript">
@@ -155,10 +184,10 @@
             requestAnimationFrame(moveStuff);
 
             context.clearRect(0,0, elem.width, elem.height);
-            context.shadowColor = '#999';
-            context.shadowBlur = 20;
-            context.shadowOffsetX = 15;
-            context.shadowOffsetY = 15;
+            //context.shadowColor = '#999';
+            //context.shadowBlur = 20;
+            //context.shadowOffsetX = 15;
+            //context.shadowOffsetY = 15;
             for(var i = 0; i < imageArray.length; i++){
                 var obj = imageArray[i];
 
@@ -173,12 +202,12 @@
                 //It's NOT the object to be faded
                 else{
                     context.save();
-                    roundedImage(obj.x, obj.y, 200, 200, 20);
-                    context.clip();
-                    context.shadowColor = '#999';
-                    context.shadowBlur = 20;
-                    context.shadowOffsetX = 15;
-                    context.shadowOffsetY = 15;
+                    //roundedImage(obj.x, obj.y, 200, 200, 20);
+                    //context.clip();
+                    //context.shadowColor = '#999';
+                    //context.shadowBlur = 20;
+                    //context.shadowOffsetX = 15;
+                    //context.shadowOffsetY = 15;
                     context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
                     context.restore();
 
@@ -190,8 +219,8 @@
 
             context.save();
             context.globalAlpha = fadePercentage/100;
-            roundedImage(obj.x, obj.y, 200, 200, 20);
-            context.clip();
+            //roundedImage(obj.x, obj.y, 200, 200, 20);
+            //context.clip();
             context.drawImage(obj.image, obj.x, obj.y, obj.sizeX, obj.sizeY);
             context.restore();
 
@@ -246,6 +275,3 @@
         }
     </script>
     {% endblock content %}
-
-    </body>
-</html>
