@@ -21,14 +21,6 @@
     transition: 0.3s
 }
 
-span{
-    top:25%;
-    position: fixed;
-    left: 0;
-    padding: 10px;
-    opacity: 0.5;
-}
-
 .sidenav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
 }

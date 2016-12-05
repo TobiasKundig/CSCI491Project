@@ -2,18 +2,13 @@
 {% load staticfiles %}
 
 
-
         {% block extra_head %}
-
             <link rel="stylesheet" href="{% static 'src/css/profileHeader.css' %}">
             <link rel="stylesheet" href="{% static 'src/css/sideNavStylesheet.css' %}">
         {% endblock %}
 
 
     {% block content %}
-        <!-- Add your site or application content here -->
-        <!DOCTYPE html>
-<html>
 
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -23,9 +18,34 @@
       <a href="#">Media</a>
     </div>
 
-    <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <span id="sideNavSpan" style="font-size:20px;cursor:pointer;top:25%;position: fixed;padding: 10px;opacity: 0.8;" onclick="openNav()">&#9776;</span>
 
-    <script>
+    <hr class="top" style="padding-top: 15%;">
+        <div class="image-landscape">
+            <img id="profileIMG" src="{{ portfolio.img.url }}">
+        </div>
+
+        <p class="profileHead-name">{{ portfolio.name }}</p>
+        <p class="profileHead-about">{{ portfolio.header }}</p>
+
+
+        <div class="profile-info-boxes">
+            <div id="col1" class="column">
+                <div class="portfolioElement" id="profile-text1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
+            </div>
+
+            <div id="col2" class="column">
+                <div class="portfolioElement" id="profile-text2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
+            </div>
+            <div id="col3" class="column">
+                <div class="portfolioElement" id="profile-text3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
+
+            </div>
+        </div>
+    <hr>
+
+
+<script>
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
     }
@@ -33,83 +53,47 @@
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
-    </script>
-
-
-
-        <hr class="top">
-        <div class="image-landscape">
-        <img id="profileIMG" src="{{ portfolio.img.url }}">
-        </div>
-
-        <p class="profileHead-name">{{ portfolio.name }}</p>
-        <p class="profileHead-about">{{ portfolio.header }}</p>
-        <hr>
-
-        <div class="profile-info-boxes">
-            <div id="col1" class="column">
-                <div class="portfolioElement" id="profile-text1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
-            </div>
-            
-            <div id="col2" class="column">
-                <div class="portfolioElement" id="profile-text2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
-        </div>
-            <div id="col3" class="column">
-                <div class="portfolioElement" id="profile-text3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</div>
-
-
-
-        <hr>
-
-
-        </div>
-</div>
-
-
-
+</script>
 
 
 
     <script>
         /*var contentArray = [document.getElementsByClassName("profile-text")];
-        
+
         var information = [];*/
-        
-        
-        
+
+
+
 /*        for(i=0, i > 0, i++){
             document.getElementById("col1").innerHTML(contentArray[i]);
             document.getElementsByClassName("profile-text").innerHTML(information);
         }*/
-        
+
         /*for(i=0, i < contentArray.length, i++){
             for(j=0, j < information.length, j++){
-                if(contentArray[i]==information[j]){            
+                if(contentArray[i]==information[j]){
                     document.getElementById("col1").innerHTML(contentArray[i]);
                 }
             }
         }*/
-        
+
         var $array = [];
         $('div').each(function(){
             var id = $(this).attr('id');
             $array.push(id);
         });
         console.log($array);
-        
+
         var $array = [];
         $(document.getElementsByClassName('portfolioElement')).each(function(){
             var id = $(this).attr('id');
             $array.push(id);
         });
         console.log($array);
-        
-        
-        
-        
+
+
+
+
     </script>
-
-       
-
 
     {% endblock content %}
