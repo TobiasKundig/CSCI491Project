@@ -1,12 +1,6 @@
 {% extends "portfolio/base.html" %}
 {% load staticfiles %}
-<!doctype html>
-<html>
-    <head>
 
-
-    </head>
-    <body>
     {% block content %}
 
 <div class="container" style="padding-top: 120px;">
@@ -15,6 +9,21 @@
         <canvas id="myCanvas" width="1000" height="600"></canvas>
     </div>
 
+    <div class="jumbotron">
+
+        <table id="bottomTable" style="padding: 20px;table-layout: fixed;">
+            <tr>
+                <th style="padding: 10px;width: 25%;"><h4 style="font-weight: bold;">What Is It</h4></th>
+                <th style="padding: 10px;width: 25%;"><h4 style="font-weight: bold;">What Kind of Work</h4></th>
+                <th style="padding: 10px;width: 25%;"><h4 style="font-weight: bold;">Who Looks At It</h4></th>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid black;padding: 10px;">Professionals wanting to get the most exposure from their work post it here.</td>
+                <td style="border-right: 1px solid black;padding: 10px;">All your work! If you have a digital record of how you did what you did, you can put it here!</td>
+                <td style="padding: 10px;">Employers looking for creative minds come here. They want the behind-the-scenes work that made your project great.</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
      <script type="text/javascript">
@@ -246,6 +255,3 @@
         }
     </script>
     {% endblock content %}
-
-    </body>
-</html>

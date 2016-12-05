@@ -74,7 +74,7 @@
                                     <strong>{{ request.user.first_name }}</strong>
                                     <span class="glyphicon glyphicon-chevron-down"></span>
                                 </a>
-                                <ul class="dropdown-menu" style="width: 200%;padding: 20px;">
+                                <ul class="dropdown-menu" style="width: 200%;padding: 20px;background-color: #111;opacity: 0.8;">
                                     <li>
                                         <div class="navbar-login">
                                             <div class="row">
@@ -84,8 +84,8 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <p class="text-left"><strong>{{ request.user.first_name }}</strong></p>
-                                                    <p class="text-left small">{{ request.user.email }}</p>
+                                                    <p class="text-left"><strong style="color: #818181;">{{ request.user.first_name }}</strong></p>
+                                                    <p class="text-left small"><strong style="color: #818181;">{{ request.user.email }}</strong></p>
                                                     <p class="text-left">
                                                         <a href="{% url 'profile' %}" class="btn btn-primary btn-block btn-sm">Profile</a>
                                                     </p>
@@ -94,15 +94,13 @@
                                         </div>
                                     </li>
                                     <li class="divider navbar-login-session-bg"></li>
-                                    <li><a href="#">Account Settings<span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                                    <li><a href="#" style="color: #818181;">Account Settings<span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">User stats<span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+                                    <li><a href="#" style="color: #818181;">Messages<span class="badge pull-right">42</span></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Messages<span class="badge pull-right">42</span></a></li>
+                                    <li><a href="#" style="color: #818181;">Favorite Profiles <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Favorite Profiles <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="{% url 'logout' %}">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                                    <li><a href="{% url 'logout' %}" style="color: #818181;">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                                 </ul>
                             </li>
                             <!-- <p class="nav navbar-text" >Logged in as {{ request.user.first_name }}
