@@ -1,6 +1,26 @@
 {% extends "portfolio/base.html" %}
 {% load staticfiles %}
 
+    {% block extra_head %}
+    <style>
+        #bottomTable {
+            padding: 20px;
+            table-layout: fixed;
+        }
+        .bottomTH{
+            padding: 10px;
+            width: 25%;
+        }
+        .bottomh4{
+            font-weight: bold;
+        }
+        .bottomTR td{
+
+        }
+    </style>
+
+    {% endblock %}
+
     {% block content %}
 
 <div class="container" style="padding-top: 120px;">
@@ -11,13 +31,13 @@
 
     <div class="jumbotron">
 
-        <table id="bottomTable" style="padding: 20px;table-layout: fixed;">
+        <table id="bottomTable" style="">
             <tr>
-                <th style="padding: 10px;width: 25%;"><h4 style="font-weight: bold;">What Is It</h4></th>
-                <th style="padding: 10px;width: 25%;"><h4 style="font-weight: bold;">What Kind of Work</h4></th>
-                <th style="padding: 10px;width: 25%;"><h4 style="font-weight: bold;">Who Looks At It</h4></th>
+                <th class="bottomTH"><h4 class="bottomh4">What Is It</h4></th>
+                <th class="bottomTH"><h4 class="bottomh4">What Kind of Work</h4></th>
+                <th class="bottomTH"><h4 class="bottomh4">Who Looks At It</h4></th>
             </tr>
-            <tr>
+            <tr class="bottomTR">
                 <td style="border-right: 1px solid black;padding: 10px;">Professionals wanting to get the most exposure from their work post it here.</td>
                 <td style="border-right: 1px solid black;padding: 10px;">All your work! If you have a digital record of how you did what you did, you can put it here!</td>
                 <td style="padding: 10px;">Employers looking for creative minds come here. They want the behind-the-scenes work that made your project great.</td>
