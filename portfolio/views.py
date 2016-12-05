@@ -1,4 +1,4 @@
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 
 
@@ -19,7 +19,9 @@ from .forms import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.views.generic import ListView
-
+from io import BytesIO
+from PIL import Image
+from django.core.files.images import *
 #always pass in a request and return a response
 def index(request):
 
@@ -32,9 +34,21 @@ def contact(request):
 # profile and detail are different ways to access a portfolio. It depends on context.
 def profile(request):
     #user object
+
     user = get_object_or_404(User, username=request.user)
+
+    try:
+        userPortfolio = Portfolio.objects.get(user=request.user)
+    except ObjectDoesNotExist :
+
+        with open('portfolio/static/media/default/avatar.png', 'rb') as f:
+            image_file = File(f)
+            Portfolio.objects.create(user=user, name="Name of Portfolio", header="Header of portfolio", style="Light", img=image_file)
+
     userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=user)
 
+    print(userPortfolio)
+    print("hello?")
     return render(request, 'portfolio/portfolio/portfolio.html', {'portfolio': userPortfolio})
 
 #present the details of a portfolio.
@@ -80,9 +94,11 @@ class PortfolioUpdate(View):
     def get(self, request, user, *args, **kwargs):
 
         user = get_object_or_404(User, username=user)
-
-        userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=user)
-
+        try:
+            userPortfolio = Portfolio.get_manageable_object_or_404(request.user, user=user)
+        except:
+            form = PortfolioForm()
+            return render(request,'portfolio/portfolio/edit.html', {'form':form,'this_user':user})
         form = PortfolioForm(instance = userPortfolio)
 
 
