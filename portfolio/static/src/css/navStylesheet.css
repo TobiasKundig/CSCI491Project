@@ -1,0 +1,11 @@
+/* navbar */
+.navbar-default {
+    background-color: #6D6E71;
+    /*border-color: #E7E7E7;*/
+     border-bottom: 1px solid #000000;
+}
+
+.navbar-grey{
+    background-color: #6D6E71;
+
+}
